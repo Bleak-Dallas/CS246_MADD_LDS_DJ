@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "622930912267",
+    "firebase_url": "https://madd-lds-dj-5ea7f.firebaseio.com",
+    "project_id": "madd-lds-dj-5ea7f",
+    "storage_bucket": "madd-lds-dj-5ea7f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622930912267:android:dc68237116394351",
+        "android_client_info": {
+          "package_name": "edu.byui.maddldsdj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "622930912267-kcg85dcl2kvp51gf39foua0j826ch661.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.byui.maddldsdj",
+            "certificate_hash": "a4ea3e0cae7a6893382243503ac1eea0937bd88a"
+          }
+        },
+        {
+          "client_id": "622930912267-72lraagpv3m55h7vql98e1nig2ftct5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRlg4oNkI4oVZADHuQtXQfjviK330LLgw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "622930912267-72lraagpv3m55h7vql98e1nig2ftct5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
