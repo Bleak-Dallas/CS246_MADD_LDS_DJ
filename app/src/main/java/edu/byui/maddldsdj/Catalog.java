@@ -1,5 +1,8 @@
 package edu.byui.maddldsdj;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A collection of approved Songs
  * @author Matthew Burr
@@ -15,7 +18,10 @@ public class Catalog {
         return _size;
     }
 
-    public void add(Song song) {
+    public void add(Song song) throws Exception {
+        if (!song.getApproved())
+            throw new Exception("You can only add approved Songs to the Catalog.");
+
         _size += 1;
     }
 
