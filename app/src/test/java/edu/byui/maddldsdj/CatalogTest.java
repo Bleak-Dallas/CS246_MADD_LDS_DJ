@@ -60,6 +60,16 @@ public class CatalogTest {
         c.add(s);
     }
 
+    @Test
+    public void LoadMethodLoadsACollectionOfSongsIntoTheCatalog() {
+        Catalog c = new Catalog();
+        c.load();
+        assertEquals("Load should load adjust the size of the Catalog to match the number of songs.",
+                5, c.size());
+        List<Song> songs = c.getSongs();
+        assertEquals("Load should load a collection of songs into the Catalog.",
+                5, songs.size());
+    }
     // TODO: If you remove a song from the catalog, it's no longer there
     // TODO: You can get the list of songs??
 
