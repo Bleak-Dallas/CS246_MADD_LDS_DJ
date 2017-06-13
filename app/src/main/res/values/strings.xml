@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MADDLDSDJ</string>
+    <string name="text_email">Email</string>
+    <string name="text_password">Password</string>
+    <string name="button_signin">Sign In</string>
+    <string name="button_register">Register</string>
+    <string name="text_register">Create a user account by filling out the form above and pressing Register</string>
 </resources>
