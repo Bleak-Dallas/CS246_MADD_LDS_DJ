@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "622930912267-hfe3si8qat1i2enq93bei8obtp4ic19m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.byui.maddldsdj",
+            "certificate_hash": "df165dd48085c1c21eb25a85cc8b03fae2dd731e"
+          }
+        },
+        {
           "client_id": "622930912267-kcg85dcl2kvp51gf39foua0j826ch661.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

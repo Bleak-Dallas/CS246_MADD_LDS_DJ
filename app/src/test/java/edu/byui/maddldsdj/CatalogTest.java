@@ -1,7 +1,20 @@
 package edu.byui.maddldsdj;
 
-import org.junit.Test;
+import android.os.Process;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import static org.mockito.Mockito.*;
+
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -13,20 +26,40 @@ import static org.junit.Assert.*;
  * @version 1.0
  */
 
+@RunWith(MockitoJUnitRunner.class)
 public class CatalogTest {
+
+    @Mock
+    static FirebaseDatabase _server;
+    @Mock
+    static DatabaseReference _db;
+    static List<Song> _mockDb;
+
+    Catalog c;
+
+    @BeforeClass
+    public static void SetUp() {
+        _mockDb = new ArrayList<>();
+    }
+
+    @Before
+    public void BeforeTest() {
+        c = new Catalog(_db);
+        when(_db.setValue(any())).thenReturn(null);
+    }
+
     @Test
     public void DefaultConstructorCreatesEmptyCatalog() {
-        Catalog c = new Catalog();
         assertEquals("Default constructor for Catalog should create an empty Catalog.",
                 0, c.size());
     }
 
     @Test
     public void AddingASongToTheCatalogIncreasesItsSizeByOne() throws Exception {
-        Catalog c = new Catalog();
         int initialSize = c.size();
 
-        c.add(new Song("", "", "", "", true, true));
+        Song s = new Song("", "", "", "", true, true);
+        c.add(s);
         assertEquals("Adding a Song to the catalog should increase its size by 1.",
                 initialSize + 1, c.size());
 
@@ -34,7 +67,6 @@ public class CatalogTest {
 
     @Test
     public void RemovingASongFromTheCatalogDecreasesItsSizeByOne() throws Exception {
-        Catalog c = new Catalog();
         Song s = new Song();
         s.setApproved(true);
         c.add(s);
@@ -46,7 +78,6 @@ public class CatalogTest {
 
     @Test
     public void RemovingASongFromAnEmptyCatalogLeavesSizeAtZero() {
-        Catalog c= new Catalog();
         c.remove(new Song());
         assertEquals("If the Catalog is empty, removing a song should leave the size at 0.",
                 0, c.size());
@@ -56,13 +87,11 @@ public class CatalogTest {
     public void YouCannotAddANonApprovedSongToTheCatalog() throws Exception {
         Song s = new Song();
         s.setApproved(false);
-        Catalog c = new Catalog();
         c.add(s);
     }
 
     @Test
     public void LoadMethodLoadsACollectionOfSongsIntoTheCatalog() {
-        Catalog c = new Catalog();
         c.load();
         assertEquals("Load should load adjust the size of the Catalog to match the number of songs.",
                 5, c.size());
