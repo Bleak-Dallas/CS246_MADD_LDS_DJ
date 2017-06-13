@@ -2,8 +2,8 @@ package edu.byui.maddldsdj;
 
 import android.os.Process;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
 
 import static org.mockito.Mockito.*;
 
@@ -28,11 +28,13 @@ import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CatalogTest {
+    /*
 
     @Mock
     static FirebaseDatabase _server;
     @Mock
     static DatabaseReference _db;
+    */
     static List<Song> _mockDb;
 
     Catalog c;
@@ -44,8 +46,9 @@ public class CatalogTest {
 
     @Before
     public void BeforeTest() {
-        c = new Catalog(_db);
-        when(_db.setValue(any())).thenReturn(null);
+        //c = new Catalog(_db);
+        c = new Catalog();
+        //when(_db.setValue(any())).thenReturn(null);
     }
 
     @Test
