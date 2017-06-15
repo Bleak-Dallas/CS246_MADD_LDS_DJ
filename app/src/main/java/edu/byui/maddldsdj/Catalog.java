@@ -22,8 +22,8 @@ public class Catalog {
 
     public Catalog() {
         _songs = new ArrayList<>();
-        _server = FirebaseDatabase.getInstance();
-        _db = _server.getReference(CATALOG_REF_ID);
+        //_server = FirebaseDatabase.getInstance();
+        //_db = _server.getReference(CATALOG_REF_ID);
     }
 
     public Catalog(DatabaseReference in_ref) {
@@ -39,7 +39,7 @@ public class Catalog {
         if (!song.getApproved())
             throw new Exception("You can only add approved Songs to the Catalog.");
 
-        _db.setValue(song);
+        //_db.setValue(song);
         _songs.add(song);
     }
 
