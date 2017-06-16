@@ -17,8 +17,7 @@ public class CatalogActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         Catalog c = new Catalog();
         c.load();
-        ArrayAdapter<Song> adapter = new ArrayAdapter<Song>(this,
-                R.layout.catalogrow, R.id.title, c.getSongs());
+        ArrayAdapter<Song> adapter = new CatalogAdapter(this, c.getSongs());
         setListAdapter(adapter);
 
         //setContentView(R.layout.activity_catalog);
