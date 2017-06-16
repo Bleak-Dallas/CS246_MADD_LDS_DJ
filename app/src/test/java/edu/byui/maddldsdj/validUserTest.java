@@ -11,7 +11,7 @@ public class validUserTest {
     private boolean _admin = true;
 
     private User firstUserConstructor = new User(_email, _uid);
-    private User secondUserConstructor = new User(_email, _uid, _admin);
+    //private User secondUserConstructor = new User(_email, _uid, _admin);
 
 
     @Test
@@ -21,6 +21,7 @@ public class validUserTest {
         assertEquals("User isAdmin not set;", firstUserConstructor.isAdmin(), false);
     }
 
+    /*
     @Test
     public void checkConstructor() {
         assertEquals(secondUserConstructor, secondUserConstructor);
@@ -28,5 +29,5 @@ public class validUserTest {
         assertEquals("User id not set;", secondUserConstructor.getUserID(), "4DE789FT542WD");
         assertEquals("User isAdmin not set;", secondUserConstructor.isAdmin(), true);
     }
-
+*/
 }
