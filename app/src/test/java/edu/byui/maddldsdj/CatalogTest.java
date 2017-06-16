@@ -102,6 +102,7 @@ public class CatalogTest {
         assertEquals("Load should load a collection of songs into the Catalog.",
                 5, songs.size());
     }
+
     // TODO: If you remove a song from the catalog, it's no longer there
     // TODO: You can get the list of songs??
 

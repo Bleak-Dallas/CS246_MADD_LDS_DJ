@@ -96,4 +96,9 @@ public class Song {
         this.reviewed = reviewed;
     }
 
+    @Override
+    public String toString() {
+        return getTitle();
+    }
+
 }
