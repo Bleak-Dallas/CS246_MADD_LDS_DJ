@@ -1,6 +1,7 @@
 package edu.byui.maddldsdj;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
+import edu.byui.maddldsdj.dummy.TestView;
 
 public class SignInRegister extends AppCompatActivity implements View.OnClickListener{
 
@@ -25,10 +29,11 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
     private Button buttonRegister;
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private Intent intent;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser firebaseUser;
-    private ProgressDialog progressDialog;
+    FirebaseDatabase fDatabase;
     private User user;
 
     @Override
@@ -36,26 +41,8 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_register);
 
-        // get instance of Firebase Authorization
-        mAuth = FirebaseAuth.getInstance();
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        user = new User();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(SignInRegister.class.getName(), "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(SignInRegister.class.getName(), "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
-        // progress dialogue
-        progressDialog = new ProgressDialog(this);
+        // Intnet
+        intent = new Intent(this, TestView.class); // Matt change this to the proper class
         // Buttons
         buttonSignin = (Button) findViewById(R.id.button_signin);
         buttonRegister = (Button) findViewById(R.id.button_register);
@@ -65,6 +52,28 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         // assign onClickListener to buttons
         buttonSignin.setOnClickListener(this);
         buttonRegister.setOnClickListener(this);
+
+        // get instance of Firebase Authorization
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        fDatabase = FirebaseDatabase.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseUser != null) {
+                    // User is signed in
+                    user = new User(firebaseUser.getEmail(), firebaseUser.getUid());
+                    Log.d(SignInRegister.class.getName(), "onAuthStateChanged:signed_in:" + firebaseUser.getUid());
+                    Toast.makeText(SignInRegister.this, "User signed_in:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                    intent.putExtra("userEmail", user.getUserEmail()); // needs to be removed once CatalogView is working
+                    startActivity(intent);
+                } else {
+                    // User is signed out
+                    Log.d(SignInRegister.class.getName(), "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
     }
 
     @Override
@@ -96,10 +105,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
             // stop further execution
             return;
         }
-        // email and password validations have passed
-        // show progress of creating a new user
-        progressDialog.setMessage("Registering User...");
-        progressDialog.show();
 
         // create the user on firebase
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -111,14 +116,21 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                             Log.d(SignInRegister.class.getName(), "createUserWithEmail:success");
                             Toast.makeText(SignInRegister.this, "Registration Successful",
                                     Toast.LENGTH_SHORT).show();
-                            /*FirebaseUser user = firebaseAuth.getCurrentUser();
-                            updateUI(user);*/
+                            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                            if (firebaseUser != null) {
+                                // Get user information and set it to user
+                                user = new User(firebaseUser.getEmail(), firebaseUser.getUid());
+                                registerToDatabase(user);
+                                Log.v(TAG, user.getUserEmail());
+                                Log.v(TAG, user.getUserID());
+                                intent.putExtra("userEmail", user.getUserEmail()); // needs to be removed once CatalogView is working
+                                startActivity(intent);
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(SignInRegister.class.getName(), "createUserWithEmail:failure");
                             Toast.makeText(SignInRegister.this, "Registration failed...Please try again",
                                     Toast.LENGTH_SHORT).show();
-                            progressDialog.cancel();
                         }
                     }
                 });
@@ -148,6 +160,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                         Log.d(SignInRegister.class.getName(), "signInWithEmail:onComplete:" + task.isSuccessful());
                         Toast.makeText(SignInRegister.this, "SignIn Success",
                                 Toast.LENGTH_SHORT).show();
+                        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
@@ -157,19 +170,19 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                                     Toast.LENGTH_SHORT).show();
                         }
                         if (firebaseUser != null) {
-                            // Name, email address, and profile photo Url
-                            //String name = firebaseUser.getDisplayName();
-                            user.setUserEmail(firebaseUser.getEmail());
-
-                            // The user's ID, unique to the Firebase project. Do NOT use this value to
-                            // authenticate with your backend server, if you have one. Use
-                            // FirebaseUser.getToken() instead.
-                            user.setUserID(firebaseUser.getUid());
-                            Log.w(TAG, user.getUserEmail());
-                            Log.w(TAG, user.getUserID());
+                            // Get user information and set it to user
+                            user = new User(firebaseUser.getEmail(), firebaseUser.getUid());
+                            Log.v(TAG, user.getUserEmail());
+                            Log.v(TAG, user.getUserID());
+                            intent.putExtra("userEmail", user.getUserEmail());  // needs to be removed once CatalogView is working
+                            startActivity(intent);
                         }
                     }
                 });
+    }
+
+    public void registerToDatabase(User user) {
+        fDatabase.getReference().child("users").push().setValue(user);
     }
 
     @Override
