@@ -1,8 +1,5 @@
 package edu.byui.maddldsdj;
 
-/**
- * Created by Dallas on 6/7/2017.
- */
 
 public class User {
     private String userEmail;
@@ -18,6 +15,13 @@ public class User {
         this.userEmail = email;
         this.userID = uid;
         this.isAdmin = false;
+    }
+
+    // non-default constructor with admin
+    public User(String email, String uid, boolean admin) {
+        this.userEmail = email;
+        this.userID = uid;
+        this.isAdmin = admin;
     }
 
     public String getUserEmail() {
