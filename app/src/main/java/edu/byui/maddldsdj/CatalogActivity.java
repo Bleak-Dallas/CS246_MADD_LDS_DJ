@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,13 +20,11 @@ public class CatalogActivity extends ListActivity {
         c.load();
         ArrayAdapter<Song> adapter = new CatalogAdapter(this, c.getSongs());
         setListAdapter(adapter);
-
-        //setContentView(R.layout.activity_catalog);
     }
 
     @Override
     protected void onListItemClick(ListView listView, View view, int position, long id) {
-        String item = (String) getListAdapter().getItem(position);
-        Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
+        Song item = (Song) getListAdapter().getItem(position);
+        Toast.makeText(this, item.toString() + " selected", Toast.LENGTH_LONG).show();
     }
 }
