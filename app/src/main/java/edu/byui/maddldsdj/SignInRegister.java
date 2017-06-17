@@ -42,7 +42,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in_register);
 
         // Intnet
-        intent = new Intent(this, TestView.class); // Matt change this to the proper class
+        intent = new Intent(this, CatalogActivity.class);
         // Buttons
         buttonSignin = (Button) findViewById(R.id.button_signin);
         buttonRegister = (Button) findViewById(R.id.button_register);
@@ -65,7 +65,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                     user = new User(firebaseUser.getEmail(), firebaseUser.getUid());
                     Log.d(SignInRegister.class.getName(), "onAuthStateChanged:signed_in:" + firebaseUser.getUid());
                     Toast.makeText(SignInRegister.this, "User signed_in:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
-                    intent.putExtra("userEmail", user.getUserEmail()); // needs to be removed once CatalogView is working
                     startActivity(intent);
                 } else {
                     // User is signed out
@@ -88,6 +87,9 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+        if (firebaseUser != null) {
+            mAuth.signOut();
+        }
     }
 
     private void registerUser() {
@@ -105,7 +107,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
             // stop further execution
             return;
         }
-
         // create the user on firebase
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -123,7 +124,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                                 registerToDatabase(user);
                                 Log.v(TAG, user.getUserEmail());
                                 Log.v(TAG, user.getUserID());
-                                intent.putExtra("userEmail", user.getUserEmail()); // needs to be removed once CatalogView is working
                                 startActivity(intent);
                             }
                         } else {
@@ -152,7 +152,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
             // stop further execution
             return;
         }
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -174,7 +173,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                             user = new User(firebaseUser.getEmail(), firebaseUser.getUid());
                             Log.v(TAG, user.getUserEmail());
                             Log.v(TAG, user.getUserID());
-                            intent.putExtra("userEmail", user.getUserEmail());  // needs to be removed once CatalogView is working
                             startActivity(intent);
                         }
                     }
