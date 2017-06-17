@@ -42,7 +42,10 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in_register);
 
         // Intnet
-        intent = new Intent(this, CatalogActivity.class);
+        //intent = new Intent(this, CatalogActivity.class);
+        // commented out the catalog activity to try the recycler activity... we can go either way
+        //  as we continue development
+        intent = new Intent(this, RecyclerActivity.class);
         // Buttons
         buttonSignin = (Button) findViewById(R.id.button_signin);
         buttonRegister = (Button) findViewById(R.id.button_register);

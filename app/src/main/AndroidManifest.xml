@@ -14,6 +14,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
         <activity android:name=".CatalogActivity" />
+        <activity android:name=".RecyclerActivity" />
         <activity android:name=".dummy.TestView" />
         <activity android:name=".SignInRegister">
             <intent-filter>
