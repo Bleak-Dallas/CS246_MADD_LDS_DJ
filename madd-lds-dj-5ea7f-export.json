@@ -1,0 +1,19 @@
+{
+  "users" : {
+    "-KmiWqwBC2TipX2ljjlc" : {
+      "admin" : false,
+      "userEmail" : "test@gmail.com",
+      "userID" : "2kiFS0gmweh2kF3FzloTtqQv1OY2"
+    },
+    "-KmlhISk9FHYidny2tvk" : {
+      "admin" : false,
+      "userEmail" : "mdburr@outlook.com",
+      "userID" : "2RpJx28T3aNyWpvhKL4NFkx2No72"
+    },
+    "-Kmonp6_ZGoGYor0kN3b" : {
+      "admin" : false,
+      "userEmail" : "theshum@poopsville.com",
+      "userID" : "SmNrMEdCcOf6C181aqVf5pvof2c2"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "users" : {
+    "-KmiWqwBC2TipX2ljjlc" : {
+      "admin" : false,
+      "userEmail" : "test@gmail.com",
+      "userID" : "2kiFS0gmweh2kF3FzloTtqQv1OY2"
+    },
+    "-KmlhISk9FHYidny2tvk" : {
+      "admin" : false,
+      "userEmail" : "mdburr@outlook.com",
+      "userID" : "2RpJx28T3aNyWpvhKL4NFkx2No72"
+    },
+    "-Kmonp6_ZGoGYor0kN3b" : {
+      "admin" : false,
+      "userEmail" : "theshum@poopsville.com",
+      "userID" : "SmNrMEdCcOf6C181aqVf5pvof2c2"
+    }
+  },
+  "Song": {
+    "0" : "ED SHEERAN - SHAPE OF YOU",
+    "1" : "ED SHEERAN - CASTLE ON THE HILL",
+    "2" : "RAG'N'BONE MAN - HUMAN",
+    "3" : "JAX JONES FT RAYE - YOU DON'T KNOW ME",
+    "4" : "LITTLE MIX - TOUCH",
+    "5" : "CLEAN BANDIT - ROCKABYE",
+    "6" : "ED SHEERAN - GALWAY GIRL",
+    "7" : "STARLEY - CALL ON ME",
+    "8" : "CHAINSMOKERS - PARIS",
+    "9" : "JP COOPER - SEPTEMBER SONG",
+    "10" : "ZAYN/TAYLOR SWIFT - I DON'T WANNA LIVE FOREVER (FIFTY SHADES",
+    "11" : "ZARA LARSSON - I WOULD LIKE",
+    "12" : "JAMES ARTHUR - SAY YOU WON'T LET GO",
+    "13" : "CHAINSMOKERS & COLDPLAY - SOMETHING JUST LIKE THIS",
+    "14" : "WEEKND FT DAFT PUNK - I FEEL IT COMING",
+    "15" : "NEIKED - SEXUAL",
+    "16" : "KATY PERRY FT SKIP MARLEY - CHAINED TO THE RHYTHM",
+    "17" : "DUA LIPA - BE THE ONE",
+    "18" : "WEEKND FT DAFT PUNK - STARBOY",
+    "19" : "STORMZY - BIG FOR YOUR BOOTS",
+    "20" : "SEAN PAUL FT DUA LIPA - NO LIE",
+    "21" : "LOUIS TOMLINSON & STEVE AOKI - JUST HOLD ON",
+    "22" : "MARTIN GARRIX & DUA LIPA - SCARED TO BE LONELY",
+    "23" : "ED SHEERAN - HOW WOULD YOU FEEL (PAEAN)",
+    "24" : "CHAINSMOKERS FT HALSEY - CLOSER",
+    "25" : "LITTLE MIX - SHOUT OUT TO MY EX",
+    "26" : "MARTIN JENSEN - SOLO DANCE",
+    "27" : "DRAKE - FAKE LOVE",
+    "28" : "KYGO & SELENA GOMEZ - IT AIN'T ME",
+    "29" : "ED SHEERAN - PERFECT",
+    "30" : "MAROON 5 FT KENDRICK LAMAR - DON'T WANNA KNOW",
+    "31" : "ED SHEERAN - NEW MAN",
+    "32" : "MACHINE GUN KELLY/CABELLO - BAD THINGS",
+    "33" : "BRUNO MARS - 24K MAGIC",
+    "34" : "TOM ZANETTI FT SADIE AMA - YOU WANT ME",
+    "35" : "VAMPS FT MATOMA - ALL NIGHT",
+    "36" : "SAGE THE GEMINI - NOW AND LATER",
+    "37" : "ED SHEERAN - HAPPIER",
+    "38" : "ANNE-MARIE - CIAO ADIOS",
+    "39" : "DRAKE FT WIZKID & KYLA - ONE DANCE"
+  }
+}
+
