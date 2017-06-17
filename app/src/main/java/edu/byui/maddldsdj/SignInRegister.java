@@ -87,6 +87,9 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+        if (firebaseUser != null) {
+            mAuth.signOut();
+        }
     }
 
     private void registerUser() {
