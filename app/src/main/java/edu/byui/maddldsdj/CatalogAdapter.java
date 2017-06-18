@@ -1,6 +1,8 @@
 package edu.byui.maddldsdj;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,21 @@ import java.util.List;
  * Created by Matthew on 6/16/2017.
  */
 
-public class CatalogAdapter extends ArrayAdapter<Song> {
+public class CatalogAdapter extends ArrayAdapter<String> {
+    private final Context _context;
+    private final List<String> _songs;
+
+    static class ViewHolder{
+        public TextView song;
+    }
+
+    public CatalogAdapter(Context context, List<String> songs){
+        super(context, R.layout.activity_catalog, songs);
+        this._context = context;
+        this._songs = songs;
+    }
+}
+    /*
     private final Context _context;
     private final List<Song> _songs;
 
@@ -59,4 +75,4 @@ public class CatalogAdapter extends ArrayAdapter<Song> {
     public Song getItem(int position) {
         return _songs.get(position);
     }
-}
+}*/
