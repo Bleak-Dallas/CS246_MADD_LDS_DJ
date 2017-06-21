@@ -1,7 +1,12 @@
 package edu.byui.maddldsdj;
 
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +23,30 @@ public class Catalog {
     private List<Song> _songs;
     private FirebaseDatabase _server;
     private DatabaseReference _db;
+    private List<CatalogEventListener> _listeners;
+    private ValueEventListener _dbListener;
+
     private static String CATALOG_REF_ID = "catalog";
+    private static final String TAG = "CatClass";
 
     public Catalog() {
-        _songs = new ArrayList<>();
-        //_server = FirebaseDatabase.getInstance();
-        //_db = _server.getReference(CATALOG_REF_ID);
+        this(FirebaseDatabase.getInstance().getReference(CATALOG_REF_ID));
     }
 
     public Catalog(DatabaseReference in_ref) {
         _songs = new ArrayList<>();
+        _listeners = new ArrayList<>();
         _db = in_ref;
+        _dbListener = new CatalogDBListener();
+    }
+
+    private void onCatalogReloaded() {
+        for(CatalogEventListener listener : _listeners)
+            listener.onCatalogReloaded();
+    }
+
+    public void addCatalogListener(CatalogEventListener listener) {
+        _listeners.add(listener);
     }
 
     public int size() {
@@ -48,21 +66,33 @@ public class Catalog {
     }
 
     public void load() {
-        _songs.clear();
-
-        // TODO: Replace this code with a call to the Firebase
-        try {
-            add(new Song("Bohemian Rhapsody", "Queen", "A Night at the Opera", "Rock", true, true));
-            add(new Song("Come Together", "Beatles", "Abbey Road", "Rock", true, true));
-            add(new Song("Wouldn't It Be Nice", "The Beach Boys", "Pet Sounds", "Rock", true, true));
-            add(new Song("Evenflow", "Pearl Jam", "Ten", "Rock", true, true));
-            add(new Song("Come As You Are", "Nirvana", "Nevermind", "Rock", true, true));
-        } catch (Exception ex) {
-
-        }
+        _db.removeEventListener(_dbListener);
+        _db.addListenerForSingleValueEvent(_dbListener);
     }
 
     public List<Song> getSongs() {
         return _songs;
+    }
+
+    private class CatalogDBListener implements ValueEventListener {
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            _songs.clear();
+            Log.d(TAG, "Firebase onDataChange fired.");
+            Log.d(TAG, "Retrieving data...");
+
+            _songs.clear();
+            for (DataSnapshot song : dataSnapshot.getChildren())
+                _songs.add(song.getValue(Song.class));
+
+            Log.d(TAG, "Retrieved songs... firing onCatalogReloaded");
+            onCatalogReloaded();
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
     }
 }

@@ -26,46 +26,24 @@ import java.util.List;
 
 public class CatalogActivity extends ListActivity {
 
-    FirebaseDatabase _firebase;
-    DatabaseReference _db;
-    private final static String CATALOG = "catalog";
     private final static String TAG = "CatAct";
     private Context _context;
+    private Catalog _catalog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Catalog c = new Catalog();
-        //c.load();
         _context = this;
-        Log.d(TAG, "Connecting to FireBase...");
-
-        _firebase = FirebaseDatabase.getInstance();
-        _db = _firebase.getReference(CATALOG);
-
-        _db.addValueEventListener(new ValueEventListener() {
+        _catalog = new Catalog();
+        _catalog.addCatalogListener(new CatalogEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Log.d(TAG, "Retrieving songs from Firebase...");
-                List<Song> songs = new ArrayList<>();
-
-                for (DataSnapshot song : dataSnapshot.getChildren())
-                    songs.add(song.getValue(Song.class));
-
-                ArrayAdapter<Song> adapter =
-                        new CatalogAdapter(_context, songs);
-
+            public void onCatalogReloaded() {
+                List<Song> songs = _catalog.getSongs();
+                ArrayAdapter<Song> adapter = new CatalogAdapter(_context, songs);
                 setListAdapter(adapter);
-                Log.d(TAG, "Songs retrieved.");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
+        _catalog.load();
     }
 
     @Override
