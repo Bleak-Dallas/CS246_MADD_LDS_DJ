@@ -34,6 +34,11 @@ public class CatalogListFragment extends ListFragment {
                 ArrayAdapter<Song> adapter = new CatalogAdapter(_context, songs);
                 setListAdapter(adapter);
             }
+
+            @Override
+            public void onCatalogSongAdded(Song song) {
+
+            }
         });
         _catalog.load();
     }

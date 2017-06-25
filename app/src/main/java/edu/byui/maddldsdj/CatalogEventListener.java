@@ -6,4 +6,5 @@ package edu.byui.maddldsdj;
 
 public interface CatalogEventListener {
     public void onCatalogReloaded();
+    public void onCatalogSongAdded(Song song);
 }
