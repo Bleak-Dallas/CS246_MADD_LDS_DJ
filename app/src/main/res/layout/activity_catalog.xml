@@ -9,14 +9,52 @@
     <fragment
         android:id="@+id/fragment"
         android:name="edu.byui.maddldsdj.CatalogListFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="370dp"
+        android:layout_height="420dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_request_approval"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button_up_vote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/up_vote"
+        android:textSize="12sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button_request_approval"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/button_request_approval" />
+
+    <Button
+        android:id="@+id/button_view_playlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/view_playlist"
+        android:textSize="12sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button_request_approval"
+        app:layout_constraintLeft_toRightOf="@+id/button_request_approval"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/button_request_approval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/request_song_approval"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/button_up_vote"
+        app:layout_constraintRight_toLeftOf="@id/button_view_playlist" />
 </android.support.constraint.ConstraintLayout>

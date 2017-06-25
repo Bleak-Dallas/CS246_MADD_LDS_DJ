@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,11 +25,32 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CatalogActivity extends AppCompatActivity {
+public class CatalogActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button buttonUpVote;
+    private Button buttonViewPlaylist;
+    private Button buttonRequestApproval;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
+        buttonUpVote = (Button) findViewById(R.id.button_up_vote);
+        buttonViewPlaylist = (Button) findViewById(R.id.button_view_playlist);
+        buttonRequestApproval = (Button) findViewById(R.id.button_request_approval);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == buttonUpVote){
+            Toast.makeText(CatalogActivity.this, "Voted for song", Toast.LENGTH_SHORT).show();
+        }
+        if (v == buttonViewPlaylist){
+            Toast.makeText(CatalogActivity.this, "view Playlist Selected", Toast.LENGTH_SHORT).show();
+        }
+        if (v == buttonRequestApproval){
+            Toast.makeText(CatalogActivity.this, "Request for song approval selected", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
