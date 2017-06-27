@@ -21,7 +21,7 @@ public class PlayListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _context = this;
+       /* _context = this;
         _catalog = new Catalog();
         _catalog.addCatalogListener(new CatalogEventListener() {
             @Override
@@ -31,7 +31,7 @@ public class PlayListActivity extends ListActivity {
                 setListAdapter(adapter);
             }
         });
-        _catalog.load();
+        _catalog.load();*/
     }
 
     @Override
