@@ -6,4 +6,10 @@
     <string name="button_register">Register</string>
     <string name="text_register">Create a user account by filling out the form above and pressing Register</string>
     <string name="button_signOut">Sign Out</string>
+    <string name="button_view_catalog">View Catalog</string>
+    <string name="button_view_playlist">View Playlist</string>
+    <string name="button_upvote">Vote up</string>
+    <string name="button_downvote">Vote down</string>
+    <string name="button_remove_playlist">Remove from playlist</string>
+    <string name="text_votes">Votes</string>
 </resources>

@@ -3,8 +3,12 @@ package edu.byui.maddldsdj;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 /**
@@ -32,13 +36,12 @@ public class SongActivity extends AppCompatActivity {
         Song song = gson.fromJson(songJson, Song.class);
 
         // Populate views from the Song
-        TextView songText = (TextView)findViewById(R.id.songTitle);
-        TextView artistText = (TextView)findViewById(R.id.songArtist);
-        TextView albumText = (TextView)findViewById(R.id.songAlbum);
+        TextView songText = (TextView)findViewById(R.id.playSongTitle);
+        TextView artistText = (TextView)findViewById(R.id.playSongArtist);
+        TextView albumText = (TextView)findViewById(R.id.playSongAlbum);
         songText.setText(song.getTitle());
         artistText.setText(song.getArtist());
         albumText.setText(song.getAlbum());
-
         // Save the Song so we can easily request it if need be
         _song = song;
     }
