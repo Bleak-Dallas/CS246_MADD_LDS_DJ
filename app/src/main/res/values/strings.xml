@@ -9,4 +9,7 @@
     <string name="view_playlist">View Playlist</string>
     <string name="request_song_approval">Request Song Approval</string>
     <string name="up_vote">Up Vote</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
