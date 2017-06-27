@@ -1,7 +1,9 @@
 package edu.byui.maddldsdj;
 
-import android.app.ProgressDialog;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,13 +19,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-import edu.byui.maddldsdj.dummy.TestView;
 
 public class SignInRegister extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String TAG = "DALLAS LOG";
+    private static final String TAG = "SIGNIN ACT";
+    private static final String USERPREF = "UserPref";
 
     private Button buttonSignin;
     private Button buttonRegister;
@@ -33,8 +40,10 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser firebaseUser;
-    FirebaseDatabase fDatabase;
+    private FirebaseDatabase fDatabase;
+    private DatabaseReference dbRef;
     private User user;
+    private boolean userAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,24 +67,26 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
 
         // get instance of Firebase Authorization
         mAuth = FirebaseAuth.getInstance();
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseUser = mAuth.getCurrentUser();
         fDatabase = FirebaseDatabase.getInstance();
+        dbRef = FirebaseDatabase.getInstance().getReference();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseUser != null) {
-                    // User is signed in
-                    user = new User(firebaseUser.getEmail(), firebaseUser.getUid());
-                    Log.d(SignInRegister.class.getName(), "onAuthStateChanged:signed_in:" + firebaseUser.getUid());
-                    Toast.makeText(SignInRegister.this, "User signed_in:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
+                    getAdminFromFirebase();
+                    // User is signed in. Save to user object and save user to shared preferences
+                    addUserAndAssignPreferences();
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + firebaseUser.getUid());
+                    Toast.makeText(SignInRegister.this, "User signed_in:" + user.getUserEmail(), Toast.LENGTH_SHORT).show();
                 } else {
                     // User is signed out
-                    Log.d(SignInRegister.class.getName(), "onAuthStateChanged:signed_out");
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
                 // ...
             }
         };
+        startActivity(intent);
     }
 
     @Override
@@ -123,11 +134,10 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                             if (firebaseUser != null) {
                                 // Get user information and set it to user
-                                user = new User(firebaseUser.getEmail(), firebaseUser.getUid());
+                                addUserAndAssignPreferences();
                                 registerToDatabase(user);
                                 Log.v(TAG, user.getUserEmail());
                                 Log.v(TAG, user.getUserID());
-                                startActivity(intent);
                             }
                         } else {
                             // If sign in fails, display a message to the user.
@@ -137,6 +147,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 });
+        startActivity(intent);
     }
 
     private void signIn() {
@@ -163,6 +174,13 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(SignInRegister.this, "SignIn Success",
                                 Toast.LENGTH_SHORT).show();
                         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                        if (firebaseUser != null) {
+                            // Get user information and set it to user
+                            getAdminFromFirebase();
+                            addUserAndAssignPreferences();
+                            Log.v(TAG, user.getUserEmail());
+                            Log.v(TAG, user.getUserID());
+                        }
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
@@ -171,19 +189,43 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                             Toast.makeText(SignInRegister.this, "SignIn failed...Please try again",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        if (firebaseUser != null) {
-                            // Get user information and set it to user
-                            user = new User(firebaseUser.getEmail(), firebaseUser.getUid());
-                            Log.v(TAG, user.getUserEmail());
-                            Log.v(TAG, user.getUserID());
-                            startActivity(intent);
-                        }
                     }
                 });
+        startActivity(intent);
     }
 
-    public void registerToDatabase(User user) {
-        fDatabase.getReference().child("users").push().setValue(user);
+    private void registerToDatabase(User user) {
+        fDatabase.getReference().child("users").child(firebaseUser.getUid()).setValue(user);
+    }
+
+    private void addUserAndAssignPreferences() {
+        // create new User
+        user = new User(firebaseUser.getEmail(), firebaseUser.getUid(), false); // need to change this to get from firebase database
+        // Store User in Shared Preferences
+        SharedPreferences userPreferences = getSharedPreferences(USERPREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = userPreferences.edit();
+        editor.putString("userEmail", user.getUserEmail());
+        editor.putString("userID", user.getUserID());
+        editor.putBoolean("userAdmin", user.isAdmin());
+        editor.apply();
+        // For testing purposes
+        // Toast.makeText(SignInRegister.this, "User admin:" + user.isAdmin() + " " + user.getUserEmail(), Toast.LENGTH_LONG).show();
+        Log.d(TAG, "user saved to shared preferences");
+    }
+
+    private void getAdminFromFirebase() {
+        ValueEventListener dbListener = dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userAdmin = dataSnapshot.child("users").child(firebaseUser.getUid()).child("admin").getValue(Boolean.class);
+                Log.v(TAG, "User: " + user.getUserEmail() + "userAdmin: " + String.valueOf(userAdmin));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

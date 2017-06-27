@@ -24,7 +24,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".SongActivity" />
-        <activity android:name=".ConvertSongListToCatalog"></activity>
+        <activity android:name=".ConvertSongListToCatalog" />
+        <activity android:name=".PlayListActivity" />
+        <activity android:name=".SongPlayListActivity" />
     </application>
 
 </manifest>
