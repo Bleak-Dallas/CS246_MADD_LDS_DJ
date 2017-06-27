@@ -24,43 +24,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CatalogActivity extends ListActivity {
-
-    private final static String TAG = "CatAct";
-    private Context _context;
-    private Catalog _catalog;
+public class CatalogActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _context = this;
-        _catalog = new Catalog();
-        _catalog.addCatalogListener(new CatalogEventListener() {
-            @Override
-            public void onCatalogReloaded() {
-                List<Song> songs = _catalog.getSongs();
-                ArrayAdapter<Song> adapter = new CatalogAdapter(_context, songs);
-                setListAdapter(adapter);
-            }
-        });
-        _catalog.load();
-    }
-
-    @Override
-    protected void onListItemClick(ListView listView, View view, int position, long id) {
-        Song item = (Song) getListAdapter().getItem(position);
-
-        // Serialize the song to Json
-        Gson gson = new Gson();
-        String jsonSong = gson.toJson(item);
-
-        // Create intent to display song details
-        Intent songDetail = new Intent(this, SongActivity.class);
-
-        // Add song to intent
-        songDetail.putExtra(SongActivity.SONG_EXTRA, jsonSong);
-
-        // Launch the intent
-        startActivity(songDetail);
+        setContentView(R.layout.activity_catalog);
     }
 }
