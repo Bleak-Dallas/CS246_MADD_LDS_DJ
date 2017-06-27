@@ -79,7 +79,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                     addUserAndAssignPreferences();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + firebaseUser.getUid());
                     Toast.makeText(SignInRegister.this, "User signed_in:" + user.getUserEmail(), Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -87,6 +86,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                 // ...
             }
         };
+        startActivity(intent);
     }
 
     @Override
@@ -138,7 +138,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                                 registerToDatabase(user);
                                 Log.v(TAG, user.getUserEmail());
                                 Log.v(TAG, user.getUserID());
-                                startActivity(intent);
                             }
                         } else {
                             // If sign in fails, display a message to the user.
@@ -148,6 +147,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 });
+        startActivity(intent);
     }
 
     private void signIn() {
@@ -176,8 +176,8 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         if (firebaseUser != null) {
                             // Get user information and set it to user
+                            getAdminFromFirebase();
                             addUserAndAssignPreferences();
-                            startActivity(intent);
                             Log.v(TAG, user.getUserEmail());
                             Log.v(TAG, user.getUserID());
                         }
@@ -191,6 +191,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 });
+        startActivity(intent);
     }
 
     private void registerToDatabase(User user) {
@@ -207,22 +208,24 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         editor.putString("userID", user.getUserID());
         editor.putBoolean("userAdmin", user.isAdmin());
         editor.apply();
-        Toast.makeText(SignInRegister.this, "User admin:" + user.isAdmin() + " " + user.getUserEmail(), Toast.LENGTH_LONG).show();
+        // For testing purposes
+        // Toast.makeText(SignInRegister.this, "User admin:" + user.isAdmin() + " " + user.getUserEmail(), Toast.LENGTH_LONG).show();
         Log.d(TAG, "user saved to shared preferences");
     }
 
     private void getAdminFromFirebase() {
-        ValueEventListener dbListener = new ValueEventListener() {
+        ValueEventListener dbListener = dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                userAdmin = dataSnapshot.child("users").child(firebaseUser.getUid()).getValue(Boolean.class);
+                userAdmin = dataSnapshot.child("users").child(firebaseUser.getUid()).child("admin").getValue(Boolean.class);
+                Log.v(TAG, "User: " + user.getUserEmail() + "userAdmin: " + String.valueOf(userAdmin));
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        };
+        });
     }
 
     @Override
