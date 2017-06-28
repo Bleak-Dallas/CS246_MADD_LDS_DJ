@@ -10,12 +10,9 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * The PlayListAdapter class 
- * <p>
- * @author Dallas Bleak
- * @version 1.0
- * @since 2017-06-22
+ * Created by Dallas on 6/23/2017.
  */
+
 public class PlayListAdapter extends ArrayAdapter{
     private final Context _context;
     private final List<Song> _songs;
