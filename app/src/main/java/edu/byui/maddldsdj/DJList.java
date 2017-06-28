@@ -28,23 +28,25 @@ public class DJList extends Song {
     }
 
     // non-default constructor
-    public DJList(String title, String artist, String album, String genre){
+    public DJList(String title, String artist, String album, String genre, int votes){
         this.title = title;
         this.artist = artist;
         this.album = album;
         this.genre = genre;
         reviewed = false;
         approved = false;
+        this.voteCount = votes;
     }
 
     // non-default constructor
-    public DJList (String title, String artist, String album, String genre, Boolean reviewed, Boolean approved) {
+    public DJList (String title, String artist, String album, String genre, int votes, Boolean reviewed, Boolean approved) {
         this.title = title;
         this.artist = artist;
         this.album = album;
         this.genre = genre;
         this.reviewed = reviewed;
         this.approved = approved;
+        this.voteCount = votes;
     }
 
     public String getTitle() {
@@ -94,6 +96,10 @@ public class DJList extends Song {
     public void setReviewed(Boolean reviewed) {
         this.reviewed = reviewed;
     }
+
+    public void setVoteCount(int votes) {this.voteCount = votes; };
+
+    public int getVoteCount() { return voteCount; };
 
     @Override
     public String toString() {
