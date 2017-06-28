@@ -3,7 +3,6 @@ package edu.byui.maddldsdj;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,6 +12,13 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+/**
+ * The PlayListActivity class
+ * <p>
+ * @author Dallas Bleak
+ * @version 1.0
+ * @since 2017-06-22
+ */
 public class PlayListActivity extends ListActivity {
     private final static String TAG = "PlayListAct";
     private Context _context;

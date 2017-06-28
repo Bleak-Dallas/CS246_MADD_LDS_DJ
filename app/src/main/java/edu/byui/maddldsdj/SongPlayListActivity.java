@@ -14,6 +14,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
+/**
+ * The SongPlayListActivity class
+ * <p>
+ * @author Dallas Bleak
+ * @version 1.0
+ * @since 2017-06-22
+ */
 public class SongPlayListActivity extends AppCompatActivity {
 
     public static final String SONG_EXTRA = "song_extra";

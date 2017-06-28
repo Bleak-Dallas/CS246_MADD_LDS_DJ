@@ -27,9 +27,18 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
+/**
+ * The SignInRegister class allows the user to sign into the application,
+ * register for the application as well as keep the user signed in as long
+ * as the user does not close teh app.
+ * <p>
+ * @author Dallas Bleak
+ * @version 1.0
+ * @since 2017-06-01
+ */
 public class SignInRegister extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String TAG = "SIGNIN ACT";
+    private static final String TAG = "SIGNINACT";
     private static final String USERPREF = "UserPref";
 
     private Button buttonSignin;
@@ -52,9 +61,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
 
         // Intnet
         intent = new Intent(this, CatalogActivity.class);
-        // commented out the catalog activity to try the recycler activity... we can go either way
-        //  as we continue development
-        //intent = new Intent(this, RecyclerActivity.class);
+
         // Buttons
         buttonSignin = (Button) findViewById(R.id.button_signin);
         buttonRegister = (Button) findViewById(R.id.button_register);
@@ -69,7 +76,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         fDatabase = FirebaseDatabase.getInstance();
-        dbRef = FirebaseDatabase.getInstance().getReference();
+        dbRef = FirebaseDatabase.getInstance().getReference("users");
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -86,7 +93,9 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                 // ...
             }
         };
-        startActivity(intent);
+        if (firebaseUser != null) {
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -147,7 +156,9 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 });
-        startActivity(intent);
+        if (firebaseUser != null) {
+            startActivity(intent);
+        }
     }
 
     private void signIn() {
@@ -191,7 +202,9 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 });
-        startActivity(intent);
+        if (firebaseUser != null) {
+            startActivity(intent);
+        }
     }
 
     private void registerToDatabase(User user) {
@@ -214,7 +227,8 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
     }
 
     private void getAdminFromFirebase() {
-        ValueEventListener dbListener = dbRef.addValueEventListener(new ValueEventListener() {
+        Log.v(TAG, "getAdminFromFirebase called");
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userAdmin = dataSnapshot.child("users").child(firebaseUser.getUid()).child("admin").getValue(Boolean.class);
