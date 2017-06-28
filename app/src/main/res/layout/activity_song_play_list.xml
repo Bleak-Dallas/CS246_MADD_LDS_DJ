@@ -1,10 +1,10 @@
- <?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.byui.maddldsdj.SongActivity">
+    tools:context="edu.byui.maddldsdj.SongPlayListActivity">
 
     <TextView
         android:id="@+id/playSongTitle"
@@ -45,23 +45,68 @@
     <TextView
         android:id="@+id/playSongAlbum"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="22dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="7dp"
         android:text="Song Album"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/albumText" />
+        app:layout_constraintTop_toBottomOf="@+id/albumText"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintVertical_bias="0.277" />
+
+    <TextView
+        android:id="@+id/votes"
+        android:layout_width="0dp"
+        android:layout_height="21dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/text_votes"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/playSongAlbum" />
 
     <Button
-        android:id="@+id/btnrequest"
+        android:id="@+id/btnvoteup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/button_upvote"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintBottom_toTopOf="@+id/btnvotedown"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/btnvotedown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:text="Request"
+        android:layout_marginLeft="8dp"
+        android:text="@string/button_downvote"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btnremoveplaylist"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.115" />
+
+    <Button
+        android:id="@+id/btnremoveplaylist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/button_remove_playlist"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
