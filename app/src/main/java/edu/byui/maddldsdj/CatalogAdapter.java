@@ -12,7 +12,9 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 /**
- * Created by Matthew on 6/16/2017.
+ * Handles the presentation in a list of songs in the Catalog
+ * @author Matthew Burr
+ * @since 6/16/2017.
  */
 
 public class CatalogAdapter extends ArrayAdapter<Song> {
@@ -24,6 +26,11 @@ public class CatalogAdapter extends ArrayAdapter<Song> {
         public TextView artist;
     }
 
+    /**
+     * Creates a new instance of the Adapter
+     * @param context The view in which the list resides
+     * @param songs A list of songs to present in the view
+     */
     public CatalogAdapter(Context context, List<Song> songs) {
         super(context, R.layout.catalogrow, songs);
         this._context = context;

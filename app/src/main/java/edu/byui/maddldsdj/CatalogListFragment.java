@@ -14,7 +14,10 @@ import com.google.gson.Gson;
 import java.util.List;
 
 /**
- * Created by Matthew on 6/24/2017.
+ * Encapsulates a presentation of a Catalog for reuse in any view that wants to present the
+ * Catalog
+ * @author Matthew Burr
+ * @since 6/24/2017.
  */
 
 public class CatalogListFragment extends ListFragment {
@@ -22,6 +25,10 @@ public class CatalogListFragment extends ListFragment {
     private Context _context;
     private Catalog _catalog;
 
+    /**
+     * Initializes the Catalog and its view
+     * @param savedInstanceState
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -42,6 +49,7 @@ public class CatalogListFragment extends ListFragment {
         });
         _catalog.load();
     }
+
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
