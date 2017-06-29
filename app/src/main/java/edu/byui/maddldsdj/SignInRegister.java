@@ -4,6 +4,7 @@ package edu.byui.maddldsdj;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,6 +52,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
     private FirebaseUser firebaseUser;
     private FirebaseDatabase fDatabase;
     private DatabaseReference dbRootRef;
+    private DatabaseReference dbUserRef;
     private DatabaseReference dbUserAdminRef;
     private User user;
     private boolean userAdmin;
@@ -59,6 +61,8 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_register);
+
+        mAuth = FirebaseAuth.getInstance();
 
         // Intnet
         intent = new Intent(this, CatalogActivity.class);
@@ -78,14 +82,15 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         firebaseUser = mAuth.getCurrentUser();
         fDatabase = FirebaseDatabase.getInstance();
         dbRootRef = FirebaseDatabase.getInstance().getReference(); // Gets a reference to the entire database
-        dbUserAdminRef = dbRootRef.child("users").child(firebaseUser.getUid()).child("admin"); // gets reference to the current users admin row
+        dbUserRef = dbRootRef.child("users");
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseUser != null) {
                     // User is signed in. Save to user object and save user to shared preferences
+                    //GetUserAdminStatus();
                     addUserAndAssignPreferences();
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + firebaseUser.getUid());
+                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + firebaseUser.getUid());
                     Toast.makeText(SignInRegister.this, "User signed_in:" + user.getUserEmail(), Toast.LENGTH_SHORT).show();
                 } else {
                     // User is signed out
@@ -103,18 +108,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-        dbUserAdminRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userAdmin = dataSnapshot.getValue(Boolean.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        Log.v(TAG, "ValueEventListener called, isAdmin equals \"" + userAdmin + "\"");
     }
 
     @Override
@@ -157,6 +150,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                             if (firebaseUser != null) {
                                 // Get user information and set it to user
                                 registerToDatabase(user);
+                                //GetUserAdminStatus();
                                 addUserAndAssignPreferences();
                                 Log.v(TAG, user.getUserEmail());
                                 Log.v(TAG, user.getUserID());
@@ -200,6 +194,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         if (firebaseUser != null) {
                             // Get user information and set it to user
+                            //GetUserAdminStatus();
                             addUserAndAssignPreferences();
                             Log.v(TAG, user.getUserEmail());
                             Log.v(TAG, user.getUserID());
@@ -222,6 +217,22 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
     private void registerToDatabase(User user) {
         fDatabase.getReference().child("users").child(firebaseUser.getUid()).setValue(user);
     }
+
+    /*private void GetUserAdminStatus() {
+        dbUserAdminRef = dbRootRef.child(firebaseUser.getUid()).child("admin"); // gets reference to the current users admin row
+        dbUserAdminRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userAdmin = dataSnapshot.getValue(Boolean.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        Log.v(TAG, "ValueEventListener called, isAdmin equals \"" + userAdmin + "\"");
+    }*/
 
     private void addUserAndAssignPreferences() {
         // create new User
