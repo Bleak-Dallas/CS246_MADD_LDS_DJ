@@ -50,7 +50,8 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase fDatabase;
-    private DatabaseReference dbRef;
+    private DatabaseReference dbRootRef;
+    private DatabaseReference dbUserAdminRef;
     private User user;
     private boolean userAdmin;
 
@@ -72,16 +73,16 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         buttonSignin.setOnClickListener(this);
         buttonRegister.setOnClickListener(this);
 
-        // get instance of Firebase Authorization
+        // get instances of Firebase
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         fDatabase = FirebaseDatabase.getInstance();
-        dbRef = FirebaseDatabase.getInstance().getReference("users");
+        dbRootRef = FirebaseDatabase.getInstance().getReference(); // Gets a reference to the entire database
+        dbUserAdminRef = dbRootRef.child("users").child(firebaseUser.getUid()).child("admin"); // gets reference to the current users admin row
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseUser != null) {
-                    getAdminFromFirebase();
                     // User is signed in. Save to user object and save user to shared preferences
                     addUserAndAssignPreferences();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + firebaseUser.getUid());
@@ -102,6 +103,18 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+        dbUserAdminRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userAdmin = dataSnapshot.getValue(Boolean.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        Log.v(TAG, "ValueEventListener called, isAdmin equals \"" + userAdmin + "\"");
     }
 
     @Override
@@ -143,8 +156,8 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                             if (firebaseUser != null) {
                                 // Get user information and set it to user
-                                addUserAndAssignPreferences();
                                 registerToDatabase(user);
+                                addUserAndAssignPreferences();
                                 Log.v(TAG, user.getUserEmail());
                                 Log.v(TAG, user.getUserID());
                             }
@@ -187,7 +200,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         if (firebaseUser != null) {
                             // Get user information and set it to user
-                            getAdminFromFirebase();
                             addUserAndAssignPreferences();
                             Log.v(TAG, user.getUserEmail());
                             Log.v(TAG, user.getUserID());
@@ -213,7 +225,7 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
 
     private void addUserAndAssignPreferences() {
         // create new User
-        user = new User(firebaseUser.getEmail(), firebaseUser.getUid(), false); // need to change this to get from firebase database
+        user = new User(firebaseUser.getEmail(), firebaseUser.getUid(), userAdmin); // need to change this to get from firebase database
         // Store User in Shared Preferences
         SharedPreferences userPreferences = getSharedPreferences(USERPREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = userPreferences.edit();
@@ -224,22 +236,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         // For testing purposes
         // Toast.makeText(SignInRegister.this, "User admin:" + user.isAdmin() + " " + user.getUserEmail(), Toast.LENGTH_LONG).show();
         Log.d(TAG, "user saved to shared preferences");
-    }
-
-    private void getAdminFromFirebase() {
-        Log.v(TAG, "getAdminFromFirebase called");
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userAdmin = dataSnapshot.child("users").child(firebaseUser.getUid()).child("admin").getValue(Boolean.class);
-                Log.v(TAG, "User: " + user.getUserEmail() + "userAdmin: " + String.valueOf(userAdmin));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override
