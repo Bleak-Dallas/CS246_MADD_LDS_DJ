@@ -31,10 +31,17 @@ public class Catalog {
     private static String CATALOG_REF_ID = "catalog";
     private static final String TAG = "CatClass";
 
+    /**
+     * Creates a new instance of Catalog with the default FirebaseDatabase reference
+     */
     public Catalog() {
         this(FirebaseDatabase.getInstance().getReference(CATALOG_REF_ID));
     }
 
+    /**
+     * Creates a new instance of Catalog with the specific FirebaseDatabase reference
+     * @param in_ref Reference to the FirebaseDatabase node that stores the Catalog in Firebase
+     */
     public Catalog(DatabaseReference in_ref) {
         _songs = new ArrayList<>();
         _listeners = new ArrayList<>();
@@ -53,28 +60,51 @@ public class Catalog {
             listener.onCatalogSongAdded(song);
     }
 
+    /**
+     * Adds a new listener for Catalog events
+     * @param listener a {@link=CatalogEventListener} that will listen to Catalog events
+     */
     public void addCatalogListener(CatalogEventListener listener) {
         _listeners.add(listener);
     }
 
+    /**
+     * Gets the number of songs in the Catalog
+     * @return The number of songs in the Catalog
+     */
     public int size() {
         return _songs.size();
     }
 
+    /**
+     * Adds a new Song to the Catalog (locally and in Firebase)
+     * @param song The song to be added
+     */
     public void add(Song song) {
         _db.push().setValue(song);
     }
 
+    /**
+     * Removes a Song from the Catalog
+     * @param song The Song to be removed
+     */
     public void remove(Song song) {
         _songs.remove(song);
     }
 
+    /**
+     * Dumps and reloads the Catalog's content from the Firebase
+     */
     public void load() {
         _db.removeEventListener(_dbListener);
         _db.addListenerForSingleValueEvent(_dbListener);
         _db.addChildEventListener(_dbSongListener);
     }
 
+    /**
+     * Gets the Catalog's contents as a List for easy use in presentation
+     * @return The list of Songs in the Catalog
+     */
     public List<Song> getSongs() {
         return _songs;
     }
