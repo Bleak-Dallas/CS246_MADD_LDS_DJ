@@ -27,6 +27,7 @@ public class PlayListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_play_list);
         _context = this;
         _catalog = new Catalog();
         _catalog.addCatalogListener(new CatalogEventListener() {

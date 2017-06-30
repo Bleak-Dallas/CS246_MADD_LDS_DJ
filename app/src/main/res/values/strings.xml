@@ -12,4 +12,12 @@
     <string name="button_downvote">Vote down</string>
     <string name="button_remove_playlist">Remove from playlist</string>
     <string name="text_votes">Votes</string>
+    <string name="request_song_approval">Request Song Approval</string>
+    <string name="view_playlist">View Playlist</string>
+    <string name="buttonViewPlaylistLog">Changing view to play list</string>
+    <string name="add_to_playlist">Add to Playlist</string>
+    <string name="appears_on">Appears On</string>
+    <string name="song_album">Song Album</string>
+    <string name="song_artist">Song Artist</string>
+    <string name="song_title">Song Title</string>
 </resources>
