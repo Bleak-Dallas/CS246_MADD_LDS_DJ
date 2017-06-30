@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity android:name=".CatalogActivity" />
+        <activity android:name=".CatalogActivity"
+                  android:parentActivityName=".SignInRegister" />
         <activity android:name=".RecyclerActivity" />
         <activity android:name=".dummy.TestView" />
         <activity android:name=".SignInRegister">
@@ -23,10 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SongActivity" />
+        <activity android:name=".SongActivity"
+                  android:parentActivityName=".CatalogActivity" />
         <activity android:name=".ConvertSongListToCatalog" />
         <activity android:name=".PlayListActivity" />
-        <activity android:name=".SongPlayListActivity" />
+        <activity android:name=".SongPlayListActivity"
+                  android:parentActivityName=".PlayListActivity"/>
     </application>
 
 </manifest>
