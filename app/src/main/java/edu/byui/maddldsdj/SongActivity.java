@@ -28,6 +28,7 @@ public class SongActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonAddToPlaylist;
     private DatabaseReference _db = FirebaseDatabase.getInstance().getReference("DJList");
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +57,14 @@ public class SongActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "Requested add to playlist", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, _song.getTitle() + " add to playlist", Toast.LENGTH_SHORT).show();
         _db.push().setValue(_song);
+
+        // Create intent to display song details
+        Intent dispPlayList = new Intent(this, PlayListActivity.class);
+
+        // Launch the intent
+        startActivity(dispPlayList);
 
     }
 }
