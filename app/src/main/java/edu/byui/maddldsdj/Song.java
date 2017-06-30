@@ -13,6 +13,8 @@ public class Song {
     private String artist;
     private String album;
     private String genre;
+
+    private int voteCount;
     // has the song been reviewed?
     private Boolean reviewed;
     // has the song been approved for use at church dances?
@@ -26,6 +28,7 @@ public class Song {
         genre = "none";
         reviewed = false;
         approved = false;
+        voteCount = 0;
     }
 
     // non-default constructor
@@ -36,6 +39,7 @@ public class Song {
         this.genre = genre;
         reviewed = false;
         approved = false;
+        voteCount = 0;
     }
 
     // non-default constructor
@@ -46,6 +50,7 @@ public class Song {
         this.genre = genre;
         this.reviewed = reviewed;
         this.approved = approved;
+        voteCount = 0;
     }
 
     public String getTitle() {
@@ -95,6 +100,10 @@ public class Song {
     public void setReviewed(Boolean reviewed) {
         this.reviewed = reviewed;
     }
+
+    public int getVoteCount() { return voteCount; }
+
+    public void setVoteCount(int voteCount) { this.voteCount = voteCount; }
 
     @Override
     public String toString() {

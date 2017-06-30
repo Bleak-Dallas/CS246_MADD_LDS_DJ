@@ -6,26 +6,34 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 /**
  * Displays the details of a Song and provides a way to request it
  * @author Matthew Burr
+ * @author Damon Simpkinson
  * @since 2017-06-16
  * @version 1.0
  */
-public class SongActivity extends AppCompatActivity {
+public class SongActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String SONG_EXTRA = "song_extra";
     private Song _song;
+    private Button buttonAddToPlaylist;
+    private DatabaseReference _db = FirebaseDatabase.getInstance().getReference("DJList");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song);
+        buttonAddToPlaylist = (Button) findViewById(R.id.button_add_to_playlist);
+        buttonAddToPlaylist.setOnClickListener(this);
 
         // Get Song from the Intent
         Intent intent = getIntent();
@@ -44,5 +52,12 @@ public class SongActivity extends AppCompatActivity {
         albumText.setText(song.getAlbum());
         // Save the Song so we can easily request it if need be
         _song = song;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(this, "Requested add to playlist", Toast.LENGTH_SHORT).show();
+        _db.push().setValue(_song);
+
     }
 }
