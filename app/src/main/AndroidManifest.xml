@@ -15,7 +15,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".CatalogActivity"
                   android:parentActivityName=".SignInRegister" />
-        <activity android:name=".RecyclerActivity" />
+        <activity android:name=".VoteActivity" />
         <activity android:name=".dummy.TestView" />
         <activity android:name=".SignInRegister">
             <intent-filter>
