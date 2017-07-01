@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,8 +22,8 @@ import com.google.gson.Gson;
  * @version 1.0
  * @since 2017-06-22
  */
-public class SongPlayListActivity extends AppCompatActivity {
-
+public class SongPlayListActivity extends AppCompatActivity implements View.OnClickListener {
+    private final static String TAG = "SongPlayListActivity";
     public static final String SONG_EXTRA = "song_extra";
     private static final String USERPREF = "UserPref";
 
@@ -57,8 +58,11 @@ public class SongPlayListActivity extends AppCompatActivity {
         songText.setText(song.getTitle());
         artistText.setText(song.getArtist());
         albumText.setText(song.getAlbum());
-        voteText.setText("2");  // change this to DB later
+        voteText.setText(song.getVoteCount());  // change this to DB later
         //Toast.makeText(this, "User signed_in:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+
+        //create onClick listener for button
+        btnVoteUp.setOnClickListener(this);
 
         // Save the Song so we can easily request it if need be
         _song = song;
@@ -79,5 +83,39 @@ public class SongPlayListActivity extends AppCompatActivity {
             btnVoteUp.setVisibility(View.VISIBLE);
             btnVoteDown.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onClick(View view){
+        Log.d(TAG, "onClick activity entered");
+        if (view == btnVoteUp){
+            Toast.makeText(SongPlayListActivity.this, "Vote Incremented", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onClick activity executed");
+        }
+
+        //todo: when this gets working, add relevant code to onClick event
+        /*TextView title = (TextView) findViewById(R.id.playSongTitle);
+        TextView artist = (TextView) findViewById(R.id.playSongArtist);
+        TextView album = (TextView) findViewById(R.id.playSongAlbum);
+        TextView votes = (TextView) findViewById(R.id.votes);
+
+        Song item = new Song();
+        item.setAlbum(album.getText().toString());
+        item.setArtist(artist.getText().toString());
+        item.setTitle(title.getText().toString());
+
+        int theVote = Integer.valueOf(votes.getText().toString());
+
+        if(view == buttonUpVote)
+        {
+            //Increment the vote count
+            theVote++;
+
+            //set the new value to song
+            item.setVoteCount(theVote);
+
+            //push song to firebase
+            _catalog.add(item);
+        }*/
     }
 }
