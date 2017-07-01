@@ -96,6 +96,7 @@ public class Catalog {
      * Dumps and reloads the Catalog's content from the Firebase
      */
     public void load() {
+        Log.d(TAG, "load called.");
         _db.removeEventListener(_dbListener);
         _db.addListenerForSingleValueEvent(_dbListener);
         _db.addChildEventListener(_dbSongListener);
@@ -117,7 +118,6 @@ public class Catalog {
             Log.d(TAG, "Firebase onDataChange fired.");
             Log.d(TAG, "Retrieving data...");
 
-            _songs.clear();
             for (DataSnapshot song : dataSnapshot.getChildren())
                 _songs.add(song.getValue(Song.class));
 

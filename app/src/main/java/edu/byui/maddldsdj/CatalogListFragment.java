@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,6 +25,8 @@ public class CatalogListFragment extends ListFragment {
 
     private Context _context;
     private Catalog _catalog;
+    private CatalogAdapter _adapter;
+    private static final String TAG = "CatFrag";
 
     /**
      * Initializes the Catalog and its view
@@ -31,15 +34,20 @@ public class CatalogListFragment extends ListFragment {
      */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onActivityCreated starts.");
         super.onActivityCreated(savedInstanceState);
         _context = getActivity();
         _catalog = new Catalog();
+        _adapter = new CatalogAdapter(_context);
+        setListAdapter(_adapter);
+
         _catalog.addCatalogListener(new CatalogEventListener() {
             @Override
             public void onCatalogReloaded() {
-                List<Song> songs = _catalog.getSongs();
-                ArrayAdapter<Song> adapter = new CatalogAdapter(_context, songs);
-                setListAdapter(adapter);
+                Log.d(TAG, "onCatalogReloaded starts.");
+                _adapter.clear();
+                _adapter.addAll(_catalog.getSongs());
+                Log.d(TAG, "onCatalogReloaded ends.");
             }
 
             @Override
@@ -47,9 +55,16 @@ public class CatalogListFragment extends ListFragment {
 
             }
         });
-        _catalog.load();
+        Log.d(TAG, "onActivityCreated ends.");
     }
 
+    @Override
+    public void onStart() {
+        Log.d(TAG, "onStart starts.");
+        super.onStart();
+        _catalog.load();
+        Log.d(TAG, "onStart ends.");
+    }
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {

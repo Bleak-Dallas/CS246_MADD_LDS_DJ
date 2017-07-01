@@ -19,7 +19,6 @@ import java.util.List;
 
 public class CatalogAdapter extends ArrayAdapter<Song> {
     private final Context _context;
-    private final List<Song> _songs;
 
     static class ViewHolder {
         public TextView title;
@@ -27,14 +26,12 @@ public class CatalogAdapter extends ArrayAdapter<Song> {
     }
 
     /**
-     * Creates a new instance of the Adapter
-     * @param context The view in which the list resides
-     * @param songs A list of songs to present in the view
+     * Creates a new instance of the Adapter with a given context
+     * @param context The context for the Adapter
      */
-    public CatalogAdapter(Context context, List<Song> songs) {
-        super(context, R.layout.catalogrow, songs);
+    public CatalogAdapter(Context context) {
+        super(context, R.layout.catalogrow);
         this._context = context;
-        this._songs = songs;
     }
 
     @Override
@@ -55,15 +52,11 @@ public class CatalogAdapter extends ArrayAdapter<Song> {
         }
 
         ViewHolder holder = (ViewHolder) rowView.getTag();
-        Song song = _songs.get(position);
+        Song song = this.getItem(position);
+
         holder.title.setText(song.getTitle());
         holder.artist.setText(song.getArtist());
 
         return rowView;
-    }
-
-    @Override
-    public Song getItem(int position) {
-        return _songs.get(position);
     }
 }
