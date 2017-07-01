@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -32,6 +33,31 @@ public class VoteActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(VoteActivity.this, "Vote Incremented", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "onClick activity executed");
         }
+
+        //todo: when this gets working, add relevant code to onClick event
+        /*TextView title = (TextView) findViewById(R.id.playSongTitle);
+        TextView artist = (TextView) findViewById(R.id.playSongArtist);
+        TextView album = (TextView) findViewById(R.id.playSongAlbum);
+        TextView votes = (TextView) findViewById(R.id.votes);
+
+        Song item = new Song();
+        item.setAlbum(album.getText().toString());
+        item.setArtist(artist.getText().toString());
+        item.setTitle(title.getText().toString());
+
+        int theVote = Integer.valueOf(votes.getText().toString());
+
+        if(view == buttonUpVote)
+        {
+            //Increment the vote count
+            theVote++;
+
+            //set the new value to song
+            item.setVoteCount(theVote);
+
+            //push song to firebase
+            _catalog.add(item);
+        }*/
     }
 
 }
