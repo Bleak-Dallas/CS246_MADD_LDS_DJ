@@ -1,5 +1,6 @@
 package edu.byui.maddldsdj;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +35,11 @@ public class CatalogActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v == buttonViewPlaylist){
-            Toast.makeText(CatalogActivity.this, "view Playlist Selected", Toast.LENGTH_SHORT).show();
+            // Create intent to display song details
+            Intent dispPlayList = new Intent(this, PlayListActivity.class);
+
+            // Launch the intent
+            startActivity(dispPlayList);
         }
 
         if (v == buttonRequestApproval){
