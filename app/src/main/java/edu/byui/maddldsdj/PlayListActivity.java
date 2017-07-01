@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -23,13 +25,14 @@ public class PlayListActivity extends ListActivity {
     private final static String TAG = "PlayListAct";
     private Context _context;
     private Catalog _catalog;
+    private DatabaseReference _db = FirebaseDatabase.getInstance().getReference("DJList");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_play_list);
         _context = this;
-        _catalog = new Catalog();
+        _catalog = new Catalog(_db);
         _catalog.addCatalogListener(new CatalogEventListener() {
             @Override
             public void onCatalogReloaded() {

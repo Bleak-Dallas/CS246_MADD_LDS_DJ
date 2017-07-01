@@ -51,7 +51,7 @@ public class PlayListAdapter extends ArrayAdapter{
         Song song = _songs.get(position);
         holder.title.setText(song.getTitle());
         holder.artist.setText(song.getArtist());
-        holder.votes.setText("2");  // change this to DB when ready
+        holder.votes.setText(String.valueOf(song.getVoteCount()));  // change this to DB when ready
 
         return rowView;
     }
