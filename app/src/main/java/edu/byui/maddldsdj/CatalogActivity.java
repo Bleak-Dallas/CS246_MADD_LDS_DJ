@@ -44,6 +44,11 @@ public class CatalogActivity extends AppCompatActivity implements View.OnClickLi
 
         if (v == buttonRequestApproval){
             Toast.makeText(CatalogActivity.this, "Request for song approval selected", Toast.LENGTH_SHORT).show();
+            // Create intent to display song details
+            Intent dispSongRequest = new Intent(this, RequestSubmission.class);
+
+            // Launch the intent
+            startActivity(dispSongRequest);
         }
     }
 }

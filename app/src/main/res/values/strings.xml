@@ -20,4 +20,24 @@
     <string name="song_album">Song Album</string>
     <string name="song_artist">Song Artist</string>
     <string name="song_title">Song Title</string>
+    <string name="return_to_catalog">Return to Catalog</string>
+    <string name="submit_request">Submit Request</string>
+    <string name="album">Album</string>
+    <string name="artist">Artist</string>
+    <string name="enter_the_song_album">Enter the Song Album</string>
+    <string name="enter_the_song_artist">Enter the Song Artist</string>
+    <string name="enter_the_song_title">Enter the Song Title</string>
+    <string name="genre">Genre</string>
+    <string name="title">Title</string>
+    <string name="return_to_catalog_from_song">Return to Catalog</string>
+    <string-array name="genre_array">
+        <item>Rock</item>
+        <item>Pop</item>
+        <item>Country</item>
+        <item>Reggae</item>
+        <item>HipHop</item>
+        <item>R&amp;B</item>
+        <item>Showtunes</item>
+        <item>Other</item>
+    </string-array>
 </resources>
