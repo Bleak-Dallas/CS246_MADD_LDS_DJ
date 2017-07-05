@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -46,6 +48,22 @@ public class PlayListAdapter extends ArrayAdapter{
 
             rowView.setTag(holder);
         }
+
+        //sort the given list by artist asc
+        Collections.sort(_songs, new Comparator<Song>() {
+            @Override
+            public int compare(Song o1, Song o2) {
+                return o1.getArtist().compareToIgnoreCase(o2.getArtist());
+            }
+        });
+
+        //sort the given list by vote count desc
+        Collections.sort(_songs, new Comparator<Song>() {
+            @Override
+            public int compare(Song o1, Song o2) {
+                return Integer.valueOf(o2.getVoteCount()).compareTo(o1.getVoteCount());
+            }
+        });
 
         ViewHolder holder = (ViewHolder) rowView.getTag();
         Song song = _songs.get(position);

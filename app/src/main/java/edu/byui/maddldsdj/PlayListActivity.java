@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -37,8 +38,12 @@ public class PlayListActivity extends ListActivity {
             @Override
             public void onCatalogReloaded() {
                 List<Song> songs = _catalog.getSongs();
+                Log.v(TAG, "songs.size(): " + songs.size());
+
                 ArrayAdapter<Song> adapter = new PlayListAdapter(_context, songs);
+                Log.v(TAG, "adapter.size(): " + adapter.getCount());
                 setListAdapter(adapter);
+                Log.v(TAG, "onCatalogReload called");
             }
 
             @Override
