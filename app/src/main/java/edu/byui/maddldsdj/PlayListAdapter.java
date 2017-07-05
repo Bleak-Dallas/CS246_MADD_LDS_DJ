@@ -1,6 +1,7 @@
 package edu.byui.maddldsdj;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by Dallas on 6/23/2017.
  */
 
 public class PlayListAdapter extends ArrayAdapter{
+    private final static String TAG = "PlayListAdapter";
     private final Context _context;
     private final List<Song> _songs;
 
@@ -34,6 +38,7 @@ public class PlayListAdapter extends ArrayAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View rowView = convertView;
+        Log.v(TAG, "View rowView = " + rowView);
 
         if (rowView == null) {
             LayoutInflater inflater = (LayoutInflater) _context
