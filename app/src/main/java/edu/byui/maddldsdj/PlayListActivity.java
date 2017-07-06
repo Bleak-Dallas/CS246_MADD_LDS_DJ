@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -22,8 +23,9 @@ import java.util.List;
  * @version 1.0
  * @since 2017-06-22
  */
-public class PlayListActivity extends ListActivity {
+public class PlayListActivity extends ListActivity implements View.OnClickListener {
     private final static String TAG = "PlayListAct";
+    private Button buttonViewCatalog;
     private Context _context;
     private Catalog _catalog;
     private DatabaseReference _db = FirebaseDatabase.getInstance().getReference("DJList");
@@ -31,7 +33,9 @@ public class PlayListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_play_list);
+        setContentView(R.layout.activity_play_list);
+        buttonViewCatalog = (Button) findViewById(R.id.button_view_catalog);
+        buttonViewCatalog.setOnClickListener(this);
         _context = this;
         _catalog = new Catalog(_db);
         _catalog.addCatalogListener(new CatalogEventListener() {
@@ -70,5 +74,14 @@ public class PlayListActivity extends ListActivity {
 
         // Launch the intent
         startActivity(songDetail);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == buttonViewCatalog) {
+            Log.v(TAG, "buttonViewCatalog called");
+            Intent intent = new Intent(this, CatalogActivity.class);
+            startActivity(intent);
+        }
     }
 }

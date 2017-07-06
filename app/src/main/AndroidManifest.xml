@@ -13,27 +13,41 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".CatalogActivity"
-            android:parentActivityName=".SignInRegister" />
+
+        <activity android:name=".CatalogActivity"
+                  android:label="@string/catalog_name"
+                  android:parentActivityName=".SignInRegister" />
+
         <activity android:name=".VoteActivity" />
+
         <activity android:name=".dummy.TestView" />
-        <activity android:name=".SignInRegister">
+
+        <activity android:name=".SignInRegister"
+                  android:label="@string/signin_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SongActivity"
-            android:parentActivityName=".CatalogActivity" />
+
+        <activity android:name=".SongActivity"
+                  android:label="@string/song_name"
+                  android:parentActivityName=".CatalogActivity" />
+
         <activity android:name=".ConvertSongListToCatalog" />
-        <activity android:name=".PlayListActivity" />
-        <activity
-            android:name=".SongPlayListActivity"
-            android:parentActivityName=".PlayListActivity" />
-        <activity android:name=".RequestSubmission"></activity>
+
+        <activity android:name=".PlayListActivity"
+                  android:label="@string/playlist_name"
+                  android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
+                  android:parentActivityName=".CatalogActivity"/>
+
+        <activity android:name=".SongPlayListActivity"
+                  android:label="@string/song_name"
+                  android:parentActivityName=".PlayListActivity" />
+
+        <activity android:name=".RequestSubmission"
+                  android:label="@string/request_name"></activity>
     </application>
 
 </manifest>

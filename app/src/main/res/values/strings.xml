@@ -40,4 +40,9 @@
         <item>Showtunes</item>
         <item>Other</item>
     </string-array>
+    <string name="signin_name">Sign In / Register</string>
+    <string name="catalog_name">Approved Catalog</string>
+    <string name="song_name">Song Details</string>
+    <string name="playlist_name">DJ Playlist</string>
+    <string name="request_name">Request Song</string>
 </resources>
