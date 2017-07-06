@@ -99,7 +99,7 @@ public class Catalog {
         Log.d(TAG, "load called.");
         _db.removeEventListener(_dbListener);
         _db.addListenerForSingleValueEvent(_dbListener);
-       // _db.addChildEventListener(_dbSongListener);
+        //_db.addChildEventListener(_dbSongListener);
     }
 
     /**
