@@ -110,4 +110,13 @@ public class Song {
         return getTitle();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Song))
+            return false;
+
+        Song s = (Song)obj;
+        return (s.getTitle() == getTitle() &&
+                s.getArtist() == getArtist());
+    }
 }

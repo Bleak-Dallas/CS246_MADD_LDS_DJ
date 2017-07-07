@@ -81,6 +81,10 @@ public class Catalog {
      * @param song The song to be added
      */
     public void add(Song song) {
+        if (find(song) != null)
+            return;
+
+        _songs.add(song);
         _db.push().setValue(song);
     }
 
@@ -108,6 +112,19 @@ public class Catalog {
      */
     public List<Song> getSongs() {
         return _songs;
+    }
+
+    /**
+     * Finds a Song that matches the input song, if one exists in the Catalog.
+     * @param sought Song whose characteristics will be used to find a Song in the Catalog
+     * @return The Song, if it exists; null if it does not exist
+     */
+    public Song find(Song sought) {
+        for(Song s : _songs)
+            if (s.equals(sought))
+                return s;
+
+        return null;
     }
 
     private class CatalogDBListener implements ValueEventListener {

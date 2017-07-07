@@ -2,8 +2,8 @@ package edu.byui.maddldsdj;
 
 import android.os.Process;
 
-//import com.google.firebase.database.DatabaseReference;
-//import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import static org.mockito.Mockito.*;
 
@@ -32,9 +32,10 @@ public class CatalogTest {
 
     @Mock
     static FirebaseDatabase _server;
+    */
     @Mock
     static DatabaseReference _db;
-    */
+
     static List<Song> _mockDb;
 
     Catalog c;
@@ -46,9 +47,10 @@ public class CatalogTest {
 
     @Before
     public void BeforeTest() {
-        //c = new Catalog(_db);
-        c = new Catalog();
-        //when(_db.setValue(any())).thenReturn(null);
+        c = new Catalog(_db);
+        //c = new Catalog();
+        when(_db.push()).thenReturn(_db);
+        when(_db.setValue(any())).thenReturn(null);
     }
 
     @Test
@@ -69,6 +71,35 @@ public class CatalogTest {
     }
 
     @Test
+    public void AddingASongThatAlreadyExistsDoesNotReaddTheSongToTheCatalog()
+    {
+        Song alreadyThere = new Song("Test", "Test", "", "");
+        c.add(alreadyThere);
+        int expected = c.size();
+        Song duplicate = new Song("Test", "Test", "", "");
+        c.add(duplicate);
+        assertEquals("If you add a Song that is already there, it should not be added again.",
+                expected, c.size());
+    }
+
+    @Test
+    public void FindReturnsNullIfSongNotFound() {
+        Song sought = new Song("Test", "Test", "", "");
+        assertNull("Find should return null if a song isn't found",
+                c.find(sought));
+    }
+
+    @Test
+    public void FindReturnsAMatchingSongFromTheCatalog()
+    {
+        Song expected = new Song("Test", "Test", "", "");
+        c.add(expected);
+        Song sought = new Song("Test", "Test", "", "");
+        assertSame("The sought song should return a matching song from the catalog",
+                expected, c.find(sought));
+    }
+
+    @Test
     public void RemovingASongFromTheCatalogDecreasesItsSizeByOne() throws Exception {
         Song s = new Song();
         s.setApproved(true);
@@ -84,23 +115,6 @@ public class CatalogTest {
         c.remove(new Song());
         assertEquals("If the Catalog is empty, removing a song should leave the size at 0.",
                 0, c.size());
-    }
-
-    @Test(expected = Exception.class)
-    public void YouCannotAddANonApprovedSongToTheCatalog() throws Exception {
-        Song s = new Song();
-        s.setApproved(false);
-        c.add(s);
-    }
-
-    @Test
-    public void LoadMethodLoadsACollectionOfSongsIntoTheCatalog() {
-        c.load();
-        assertEquals("Load should load adjust the size of the Catalog to match the number of songs.",
-                5, c.size());
-        List<Song> songs = c.getSongs();
-        assertEquals("Load should load a collection of songs into the Catalog.",
-                5, songs.size());
     }
 
     // TODO: If you remove a song from the catalog, it's no longer there
