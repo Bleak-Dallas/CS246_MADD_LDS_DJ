@@ -116,7 +116,7 @@ public class Song {
             return false;
 
         Song s = (Song)obj;
-        return (s.getTitle() == getTitle() &&
-                s.getArtist() == getArtist());
+        return (s.getTitle().equals(getTitle()) &&
+                s.getArtist().equals(getArtist()));
     }
 }

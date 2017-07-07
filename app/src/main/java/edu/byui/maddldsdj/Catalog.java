@@ -48,6 +48,7 @@ public class Catalog {
         _db = in_ref;
         _dbListener = new CatalogDBListener();
         _dbSongListener = new CatalogSongListener();
+        load();
     }
 
     private void onCatalogReloaded() {
@@ -100,7 +101,7 @@ public class Catalog {
      * Dumps and reloads the Catalog's content from the Firebase
      */
     public void load() {
-        Log.d(TAG, "load called.");
+        //Log.d(TAG, "load called.");
         _db.removeEventListener(_dbListener);
         _db.addListenerForSingleValueEvent(_dbListener);
         //_db.addChildEventListener(_dbSongListener);
