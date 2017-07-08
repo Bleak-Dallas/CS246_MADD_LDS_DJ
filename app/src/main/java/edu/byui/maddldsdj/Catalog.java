@@ -10,7 +10,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A collection of approved Songs
@@ -78,15 +80,61 @@ public class Catalog {
     }
 
     /**
-     * Adds a new Song to the Catalog (locally and in Firebase)
+     * Adds a new Song to the Catalog (locally and in Firebase). If the song already exists, it
+     * will be updated instead.
      * @param song The song to be added
      */
     public void add(Song song) {
-        if (find(song) != null)
+        Song s;
+        if ((s = find(song)) != null) {
+            updateByKey(s.getKey(), song);
             return;
+        }
+
+        DatabaseReference ref;
+        String key;
+        if (null == song.getKey()) {
+            ref = _db.push();
+            key = ref.getKey();
+            song.setKey(key);
+        }
+        else {
+            key = song.getKey();
+            ref = _db.child(song.getKey());
+        }
 
         _songs.add(song);
-        _db.push().setValue(song);
+        ref.setValue(song);
+    }
+
+    /*
+    * Updates a Song in Firebase, given its key
+     */
+    private void updateByKey(String key, Song song) {
+        Map<String, Object> child = new HashMap<>();
+        child.put(key, song);
+        _db.updateChildren(child);
+    }
+
+    /**
+     * Updates a Song in the Firebase. Calling this effectively
+     * commits local changes to the Firebase for a given Song.
+     * @param song The Song with changes to commit.
+     */
+    public void update(Song song) {
+        String key = song.getKey();
+        if (null == key) {
+            Song tryFind = find(song);
+            if (null == tryFind) {
+                add(song);
+                return;
+            }
+            else {
+                key = tryFind.getKey();
+            }
+        }
+
+        updateByKey(key, song);
     }
 
     /**
@@ -136,9 +184,11 @@ public class Catalog {
             Log.d(TAG, "Firebase onDataChange fired.");
             Log.d(TAG, "Retrieving data...");
 
-            for (DataSnapshot song : dataSnapshot.getChildren())
-                _songs.add(song.getValue(Song.class));
-
+            for (DataSnapshot song : dataSnapshot.getChildren()) {
+                Song s = song.getValue(Song.class);
+                s.setKey(song.getKey());
+                _songs.add(s);
+            }
             Log.d(TAG, "Retrieved songs... firing onCatalogReloaded");
             onCatalogReloaded();
         }

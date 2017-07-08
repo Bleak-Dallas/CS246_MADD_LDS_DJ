@@ -19,6 +19,8 @@ public class Song {
     private Boolean reviewed;
     // has the song been approved for use at church dances?
     private Boolean approved;
+    // the key for the song in a database
+    private String key;
 
     // default constructor
     public Song() {
@@ -104,6 +106,10 @@ public class Song {
     public int getVoteCount() { return voteCount; }
 
     public void setVoteCount(int voteCount) { this.voteCount = voteCount; }
+
+    protected String getKey() { return key; }
+
+    protected void setKey(String key) { this.key = key; }
 
     @Override
     public String toString() {

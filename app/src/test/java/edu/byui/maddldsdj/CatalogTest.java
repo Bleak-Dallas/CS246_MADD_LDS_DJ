@@ -11,11 +11,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -51,6 +53,8 @@ public class CatalogTest {
         //c = new Catalog();
         when(_db.push()).thenReturn(_db);
         when(_db.setValue(any())).thenReturn(null);
+        when(_db.getKey()).thenReturn("TestKey");
+        when(_db.child(anyString())).thenReturn(_db);
     }
 
     @Test
@@ -80,6 +84,54 @@ public class CatalogTest {
         c.add(duplicate);
         assertEquals("If you add a Song that is already there, it should not be added again.",
                 expected, c.size());
+    }
+
+    @Test
+    public void AddingASongThatIsntInTheCatalogButHasAKeyAddsTheSongUnderThatKey() {
+        Song notThere = new Song("Test", "Test", "", "");
+        notThere.setKey("ThisTestKey");
+        c.add(notThere);
+        Song actual = c.find(notThere);
+        assertEquals("The key should be the same if we add a song that has a key.",
+                "ThisTestKey", actual.getKey());
+    }
+
+    @Test
+    public void AddingASongThatAlreadyExistsUpdatesTheSongInstead() {
+        Song alreadyThere = new Song("Test", "Test", "", "");
+        c.add(alreadyThere);
+        int expected = c.size();
+        Song duplicate = new Song("Test", "Test", "", "");
+        c.add(duplicate);
+        verify(_db, times(1)).updateChildren(anyMap());
+    }
+
+    @Test
+    public void UpdatingASongCommitsItToTheFirebase() {
+        Song s = new Song("Test", "Test", "", "");
+        c.add(s);
+        s.setVoteCount(4);
+        c.update(s);
+        verify(_db, times(1)).updateChildren(anyMap());
+    }
+
+    @Test
+    public void UpdatingASongAddsANewSongIfTheSongToBeUpdatedDoesNotExistAtAll() {
+        Song newSong = new Song("Test", "Test", "", "");
+        c.update(newSong);
+        verify(_db, times(0)).updateChildren(anyMap());
+        verify(_db, times(1)).push();
+        verify(_db, times(1)).setValue(newSong);
+    }
+
+    @Test
+    public void UpdatingASongThatDoesntHaveAKeyFindsAMatchingSongThatDoes() {
+        Song matchingSong = new Song("Test", "Test", "", "");
+        matchingSong.setKey("a");
+        c.add(matchingSong);
+        Song nonKeySong = new Song("Test", "Test", "", "");
+        c.update(nonKeySong);
+        verify(_db, times(1)).updateChildren(anyMap());
     }
 
     @Test

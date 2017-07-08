@@ -129,7 +129,7 @@ public class SongPlayListActivity extends AppCompatActivity implements View.OnCl
 
             //push song to firebase
             _catalog.add(item);
-            Toast.makeText(SongPlayListActivity.this, "Vote Incremented", Toast.LENGTH_SHORT).show();
+             Toast.makeText(SongPlayListActivity.this, "Vote Incremented", Toast.LENGTH_SHORT).show();
             Log.d(TAG,"Vote Incremented");
         }
 

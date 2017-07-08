@@ -28,6 +28,7 @@ public class SongActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonAddToPlaylist;
     private Button buttonReturnToCatalog;
     private DatabaseReference _db = FirebaseDatabase.getInstance().getReference("DJList");
+    private Catalog _catalog;
 
 
     @Override
@@ -56,14 +57,16 @@ public class SongActivity extends AppCompatActivity implements View.OnClickListe
         albumText.setText(song.getAlbum());
         // Save the Song so we can easily request it if need be
         _song = song;
+        _catalog = new Catalog(_db);
     }
 
     @Override
     public void onClick(View v) {
         if (v == buttonAddToPlaylist) {
             Toast.makeText(this, _song.getTitle() + " add to playlist", Toast.LENGTH_SHORT).show();
-            _db.push().setValue(_song);
-
+            if (null == _catalog.find(_song)) {
+                _catalog.add(_song);
+            }
             // Create intent to display song details
             Intent dispPlayList = new Intent(this, PlayListActivity.class);
 
