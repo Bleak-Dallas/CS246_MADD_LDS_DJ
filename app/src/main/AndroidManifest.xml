@@ -18,8 +18,6 @@
                   android:label="@string/catalog_name"
                   android:parentActivityName=".SignInRegister" />
 
-        <activity android:name=".VoteActivity" />
-
         <activity android:name=".dummy.TestView" />
 
         <activity android:name=".SignInRegister"
