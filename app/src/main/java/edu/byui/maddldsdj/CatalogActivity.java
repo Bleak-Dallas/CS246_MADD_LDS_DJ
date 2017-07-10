@@ -21,36 +21,33 @@ import android.widget.Toast;
 public class CatalogActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "CatalogActivity";
     private static final String USERPREF = "UserPref";
-    private Button buttonRequestApproval;
+    private Button buttonRequestList;
     private Button buttonViewPlaylist;
-    private Button buttonViewPending;
+    private boolean useradmin;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
-        buttonRequestApproval = (Button) findViewById(R.id.button_Request_Submission);
-        buttonRequestApproval.setOnClickListener(this);
+        buttonRequestList = (Button) findViewById(R.id.button_Request_List);
+        buttonRequestList.setOnClickListener(this);
         buttonViewPlaylist = (Button) findViewById(R.id.button_View_Playlist);
         buttonViewPlaylist.setOnClickListener(this);
-        buttonViewPending = (Button) findViewById(R.id.button_View_Pending);
-        buttonViewPending.setOnClickListener(this);
         setButtonVisibility();
     }
 
     private void setButtonVisibility() {
         // get admin from Shared Preferences
         SharedPreferences userPreferences = getSharedPreferences(USERPREF, Context.MODE_PRIVATE);
-        boolean useradmin = userPreferences.getBoolean("userAdmin", false);
+        useradmin = userPreferences.getBoolean("userAdmin", false);
         // if admin show View Pending Approvals button and hide Submit Request buttons
-        if (useradmin) {
-            buttonViewPending.setVisibility(View.VISIBLE);
-            buttonRequestApproval.setVisibility(View.INVISIBLE);
+        // this is reversed for now, !useradmin is really the admin
+        if (!useradmin) {
+            buttonRequestList.setText("View Pending Requests");
             // if NOT admin show Submit Request buttons and hide View Pending Approvals button
         } else {
-            buttonViewPending.setVisibility(View.INVISIBLE);
-            buttonRequestApproval.setVisibility(View.VISIBLE);
+            buttonRequestList.setText("Submit New Request");
         }
     }
 
@@ -65,20 +62,18 @@ public class CatalogActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(dispPlayList);
         }
 
-        if (v == buttonRequestApproval){
+        if (v == buttonRequestList){
             Log.v(TAG, "Request Approval selected");
-            // Create intent to display song details
-            Intent dispSongRequest = new Intent(this, RequestSubmission.class);
-            // Launch the intent
-            startActivity(dispSongRequest);
-        }
+            if (!useradmin){
 
-        if (v == buttonViewPending){
-            Log.v(TAG, "View Pending Approval List selected");
-            // create intent to display pending approval requests
-            Intent dispPendingApproval = new Intent(this, PendingApproval.class);
-            // launch the intent
-            startActivity(dispPendingApproval);
+            }
+
+            else {
+                // Create intent to display song details
+                Intent dispSongRequest = new Intent(this, RequestSubmission.class);
+                // Launch the intent
+                startActivity(dispSongRequest);
+            }
         }
     }
 }
