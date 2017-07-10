@@ -28,7 +28,7 @@
         android:text="@string/return_to_catalog"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/buttonSubmitRequest" />
+        app:layout_constraintRight_toLeftOf="@+id/button_Submit_Request" />
 
     <TextView
         android:id="@+id/textViewRequestTitle"
