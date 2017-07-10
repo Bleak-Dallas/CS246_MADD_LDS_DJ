@@ -45,4 +45,5 @@
     <string name="song_name">Song Details</string>
     <string name="playlist_name">DJ Playlist</string>
     <string name="request_name">Request Song</string>
+    <string name="view_pending_approvals">View Pending Approvals</string>
 </resources>
