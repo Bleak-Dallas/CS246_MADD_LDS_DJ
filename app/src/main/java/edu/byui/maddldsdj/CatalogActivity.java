@@ -43,11 +43,11 @@ public class CatalogActivity extends AppCompatActivity implements View.OnClickLi
         // get admin from Shared Preferences
         SharedPreferences userPreferences = getSharedPreferences(USERPREF, Context.MODE_PRIVATE);
         boolean useradmin = userPreferences.getBoolean("userAdmin", false);
-        // if admin show remove song button and hide vote buttons
+        // if admin show View Pending Approvals button and hide Submit Request buttons
         if (useradmin) {
             buttonViewPending.setVisibility(View.VISIBLE);
             buttonRequestApproval.setVisibility(View.INVISIBLE);
-            // if NOT admin show vote buttons and hide remove song button
+            // if NOT admin show Submit Request buttons and hide View Pending Approvals button
         } else {
             buttonViewPending.setVisibility(View.INVISIBLE);
             buttonRequestApproval.setVisibility(View.VISIBLE);
