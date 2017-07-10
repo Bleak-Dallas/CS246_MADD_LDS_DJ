@@ -65,7 +65,8 @@ public class CatalogActivity extends AppCompatActivity implements View.OnClickLi
         if (v == buttonRequestList){
             Log.v(TAG, "Request Approval selected");
             if (!useradmin){
-
+                Intent dispPendingApproval = new Intent (this, PendingApproval.class);
+                startActivity(dispPendingApproval);
             }
 
             else {

@@ -15,7 +15,7 @@
         android:layout_marginRight="8dp"
         android:text="@string/submit_request"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/buttonReturnToCatalog"
+        app:layout_constraintLeft_toRightOf="@+id/button_Return_To_Catalog"
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button

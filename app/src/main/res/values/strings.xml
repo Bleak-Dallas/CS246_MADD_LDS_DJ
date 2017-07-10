@@ -46,4 +46,5 @@
     <string name="playlist_name">DJ Playlist</string>
     <string name="request_name">Request Song</string>
     <string name="view_pending_approvals">View Pending Approvals</string>
+    <string name="return_to_catalog_from_Pending_Approval">Return to Catalog</string>
 </resources>

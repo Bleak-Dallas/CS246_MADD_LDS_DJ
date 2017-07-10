@@ -44,7 +44,8 @@
         <activity
             android:name=".RequestSubmission"
             android:label="@string/request_name" />
-        <activity android:name=".PendingApproval"></activity>
+        <activity android:name=".PendingApproval" />
+        <activity android:name=".PendingSongDetailActivity"></activity>
     </application>
 
 </manifest>
