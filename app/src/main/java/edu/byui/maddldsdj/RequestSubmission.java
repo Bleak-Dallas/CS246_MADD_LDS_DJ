@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * @since 7/1/2017.
  */
 
-public class RequestSubmission extends MenuActivity implements View.OnClickListener {
+public class RequestSubmission extends MenuActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private static final String TAG = "RequestSubmission";
     private Button buttonReturnToCatalog;
     private Button buttonSubmitRequest;
@@ -43,7 +43,6 @@ public class RequestSubmission extends MenuActivity implements View.OnClickListe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGenre.setAdapter(adapter);
         spinnerGenre.setOnItemSelectedListener(this);
-
         // set on click listeners for buttons
         buttonReturnToCatalog = (Button) findViewById(R.id.button_Return_To_Catalog_from_song);
         buttonReturnToCatalog.setOnClickListener(this);
