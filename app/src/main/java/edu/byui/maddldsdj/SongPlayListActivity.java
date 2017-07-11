@@ -82,6 +82,7 @@ public class SongPlayListActivity extends AppCompatActivity implements View.OnCl
         //create onClick listener for button
         btnVoteUp.setOnClickListener(this);
         btnVoteDown.setOnClickListener(this);
+        btnRemove.setOnClickListener(this);
 
         // Save the Song so we can easily request it if need be
         _song = song;
@@ -144,6 +145,11 @@ public class SongPlayListActivity extends AppCompatActivity implements View.OnCl
             _catalog.add(item);
             Toast.makeText(SongPlayListActivity.this, "Vote Decremented", Toast.LENGTH_SHORT).show();
             Log.d(TAG,"Vote Decremented");
+        }
+
+        if(view == btnRemove){
+            //remove song from list
+            _catalog.remove(item);
         }
 
         Intent reload = new Intent(this, PlayListActivity.class);
