@@ -14,7 +14,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 /**
- * Created by damon on 7/10/17.
+ * Fragment to display the list of pending song submissions awaiting approval
+ * @author Matthew Burr
+ * @author Damon Simpkinson
+ * @since 7/10/2017
  */
 
 public class SubmissionListFragment extends ListFragment {
@@ -70,12 +73,12 @@ public class SubmissionListFragment extends ListFragment {
         String jsonSong = gson.toJson(item);
 
         // Create intent to display song details
-        Intent songDetail = new Intent(_context, PendingSongDetailActivity.class);
+        Intent pendingSongDetail = new Intent(_context, PendingSongDetailActivity.class);
 
         // Add song to intent
-        songDetail.putExtra(PendingSongDetailActivity.SONG_EXTRA, jsonSong);
+        pendingSongDetail.putExtra(PendingSongDetailActivity.SONG_EXTRA, jsonSong);
 
         // Launch the intent
-        startActivity(songDetail);
+        startActivity(pendingSongDetail);
     }
 }

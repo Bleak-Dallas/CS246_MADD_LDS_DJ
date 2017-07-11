@@ -26,10 +26,9 @@ public class RequestSubmission extends AppCompatActivity implements View.OnClick
     private Button buttonReturnToCatalog;
     private Button buttonSubmitRequest;
     private Song _songSubmission;
-    private DatabaseReference _cat = FirebaseDatabase.getInstance().getReference("catalog");
-    private DatabaseReference _pending = FirebaseDatabase.getInstance().getReference("PendingRequests");
-    private Catalog _songCat;
-    private Catalog _pendingCat;
+    private Catalog _catApproved = new Catalog(FirebaseDatabase.getInstance().getReference("catalog"));
+    private Catalog _catPending = new Catalog(FirebaseDatabase.getInstance().getReference("PendingRequests"));
+    private Catalog _catRejected = new Catalog(FirebaseDatabase.getInstance().getReference("RejectedSubmissions"));
     private String submissionSongGenre;
 
     @Override
@@ -74,17 +73,22 @@ public class RequestSubmission extends AppCompatActivity implements View.OnClick
         if (v == buttonSubmitRequest){
             Log.v(TAG, "New Request Selected");
             populateRequest();
-            if (null == _songCat.find(_songSubmission)){
-                _songSubmission.setReviewed(false);
+            if (null == _catApproved.find(_songSubmission)){
                 _songSubmission.setApproved(false);
-                if (null == _pendingCat.find(_songSubmission)){
-                    _pendingCat.add(_songSubmission);
-                    Toast.makeText(this, _songSubmission.getTitle() + " added to Pending Requests", Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, _songSubmission.getTitle() + " - New song added to Pending Requests");
+                if (null == _catRejected.find(_songSubmission)) {
+                    _songSubmission.setReviewed(false);
+                    if (null == _catPending.find(_songSubmission)) {
+                        _catPending.add(_songSubmission);
+                        Toast.makeText(this, _songSubmission.getTitle() + " added to Pending Requests", Toast.LENGTH_SHORT).show();
+                        Log.v(TAG, _songSubmission.getTitle() + " - New song added to Pending Requests");
+                    } else {
+                        Toast.makeText(this, _songSubmission.getTitle() + " is already submitted for review", Toast.LENGTH_SHORT).show();
+                        Log.v(TAG, _songSubmission.getTitle() + " not submitted due to already awaiting approval");
+                    }
                 }
-                else{
-                    Toast.makeText(this, _songSubmission.getTitle() + " is already submitted for review", Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, _songSubmission.getTitle() + " not submitted due to already awaiting approval");
+                else {
+                    Toast.makeText(this, _songSubmission.getTitle() + " has been reviewed and rejected", Toast.LENGTH_SHORT).show();
+                    Log.v(TAG, _songSubmission.getTitle() + " not submitted due to already rejected");
                 }
             }
             else {

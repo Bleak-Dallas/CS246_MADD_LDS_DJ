@@ -43,7 +43,7 @@ public class CatalogActivity extends AppCompatActivity implements View.OnClickLi
         useradmin = userPreferences.getBoolean("userAdmin", false);
         // if admin show View Pending Approvals button and hide Submit Request buttons
         // this is reversed for now, !useradmin is really the admin
-        if (!useradmin) {
+        if (useradmin) {
             buttonRequestList.setText("View Pending Requests");
             // if NOT admin show Submit Request buttons and hide View Pending Approvals button
         } else {
@@ -64,7 +64,7 @@ public class CatalogActivity extends AppCompatActivity implements View.OnClickLi
 
         if (v == buttonRequestList){
             Log.v(TAG, "Request Approval selected");
-            if (!useradmin){
+            if (useradmin){
                 Intent dispPendingApproval = new Intent (this, PendingApproval.class);
                 startActivity(dispPendingApproval);
             }
