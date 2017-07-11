@@ -70,12 +70,12 @@ public class SubmissionListFragment extends ListFragment {
         String jsonSong = gson.toJson(item);
 
         // Create intent to display song details
-        Intent songDetail = new Intent(_context, PendingSongDetailActivity.class);
+        Intent pendingSongDetail = new Intent(_context, PendingSongDetailActivity.class);
 
         // Add song to intent
-        songDetail.putExtra(PendingSongDetailActivity.SONG_EXTRA, jsonSong);
+        pendingSongDetail.putExtra(PendingSongDetailActivity.SONG_EXTRA, jsonSong);
 
         // Launch the intent
-        startActivity(songDetail);
+        startActivity(pendingSongDetail);
     }
 }

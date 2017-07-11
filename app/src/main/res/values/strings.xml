@@ -47,4 +47,15 @@
     <string name="request_name">Request Song</string>
     <string name="view_pending_approvals">View Pending Approvals</string>
     <string name="return_to_catalog_from_Pending_Approval">Return to Catalog</string>
+    <string name="return_to_pending">Return to Pending</string>
+    <string name="album_pending">Album</string>
+    <string name="approve">Approve</string>
+    <string name="artist_pending">Artist</string>
+    <string name="genre_pending">Genre</string>
+    <string name="reject">Reject</string>
+    <string name="title_pending">Title</string>
+    <string name="title_pending_submission">title</string>
+    <string name="album_pending_submission">album</string>
+    <string name="artist_pending_submission">artist</string>
+    <string name="genre_pending_submission">genre</string>
 </resources>
