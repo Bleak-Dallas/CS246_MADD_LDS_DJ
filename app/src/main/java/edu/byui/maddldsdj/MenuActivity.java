@@ -41,7 +41,6 @@ public class MenuActivity extends AppCompatActivity {
         int id = item.getItemId();
         Intent signOutIntenet = new Intent(this, SignInRegister.class);
         if(id == R.id.item_sign_out) {
-            Toast.makeText(MenuActivity.this, "Sign Out button called", Toast.LENGTH_SHORT).show();
             if (firebaseUser != null) {
                 mAuth.signOut();
                 startActivity(signOutIntenet);

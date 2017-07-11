@@ -23,6 +23,7 @@ public class CatalogActivity extends MenuActivity implements View.OnClickListene
     private static final String USERPREF = "UserPref";
     private Button buttonRequestList;
     private Button buttonViewPlaylist;
+    SharedPreferences userPreferences;
     private boolean useradmin;
 
 
@@ -30,6 +31,9 @@ public class CatalogActivity extends MenuActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
+        // get admin from Shared Preferences
+        userPreferences = getSharedPreferences(USERPREF, Context.MODE_PRIVATE);
+        useradmin = userPreferences.getBoolean("userAdmin", false);
         buttonRequestList = (Button) findViewById(R.id.button_Request_List);
         buttonRequestList.setOnClickListener(this);
         buttonViewPlaylist = (Button) findViewById(R.id.button_View_Playlist);
@@ -38,9 +42,6 @@ public class CatalogActivity extends MenuActivity implements View.OnClickListene
     }
 
     private void setButtonVisibility() {
-        // get admin from Shared Preferences
-        SharedPreferences userPreferences = getSharedPreferences(USERPREF, Context.MODE_PRIVATE);
-        useradmin = userPreferences.getBoolean("userAdmin", false);
         // if admin show View Pending Approvals button and hide Submit Request buttons
         // this is reversed for now, !useradmin is really the admin
         if (useradmin) {

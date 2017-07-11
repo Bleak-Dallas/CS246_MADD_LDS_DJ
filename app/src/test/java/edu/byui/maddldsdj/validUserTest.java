@@ -21,13 +21,4 @@ public class validUserTest {
         assertEquals("User isAdmin not set;", firstUserConstructor.isAdmin(), false);
     }
 
-    /*
-    @Test
-    public void checkConstructor() {
-        assertEquals(secondUserConstructor, secondUserConstructor);
-        assertEquals("Email not set;", secondUserConstructor.getUserEmail(), "hello@gmail.com");
-        assertEquals("User id not set;", secondUserConstructor.getUserID(), "4DE789FT542WD");
-        assertEquals("User isAdmin not set;", secondUserConstructor.isAdmin(), true);
-    }
-*/
 }
