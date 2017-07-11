@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * @since 7/1/2017.
  */
 
-public class RequestSubmission extends AppCompatActivity implements View.OnClickListener {
+public class RequestSubmission extends MenuActivity implements View.OnClickListener {
     private static final String TAG = "RequestSubmission";
     private Button buttonReturnToCatalog;
     private Button buttonSubmitRequest;

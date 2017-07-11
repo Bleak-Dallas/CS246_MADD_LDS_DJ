@@ -19,11 +19,10 @@ import java.util.List;
 
 /**
  * Encapsulates a presentation of a PlayList for reuse in any view that wants to present the
- * PlayList
- * @author Matthew Burr
- * @since 6/24/2017.
+ * PlayList. See also {@link=CatalogListFragment}
+ * @author Dallas Bleak
+ * @since 7/10/2017.
  */
-
 public class PlayListFragment extends ListFragment{
     private final static String TAG = "PlayListAct";
     private Button buttonViewCatalog;

@@ -12,12 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
-        <activity
-            android:name=".CatalogActivity"
-            android:label="@string/catalog_name"
-            android:parentActivityName=".SignInRegister" />
-        <activity android:name=".dummy.TestView" />
         <activity
             android:name=".SignInRegister"
             android:label="@string/signin_name">
@@ -27,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CatalogActivity"
+            android:label="@string/catalog_name"
+            android:parentActivityName=".SignInRegister" />
         <activity
             android:name=".SongActivity"
             android:label="@string/song_name"
@@ -43,8 +41,11 @@
         <activity
             android:name=".RequestSubmission"
             android:label="@string/request_name" />
-        <activity android:name=".PendingApproval" />
-        <activity android:name=".PendingSongDetailActivity"></activity>
+        <activity
+            android:name=".PendingApproval"
+            android:label="@string/pending_approval"/>
+        <activity android:name=".PendingSongDetailActivity" />
+        <activity android:name=".MenuActivity"></activity>
     </application>
 
 </manifest>

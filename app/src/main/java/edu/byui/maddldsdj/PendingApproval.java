@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-public class PendingApproval extends AppCompatActivity implements View.OnClickListener {
+public class PendingApproval extends MenuActivity implements View.OnClickListener {
     private final static String TAG = "PendingApproval";
     private Button buttonReturnToCatalog;
     private Context _context;

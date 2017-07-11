@@ -58,4 +58,6 @@
     <string name="album_pending_submission">album</string>
     <string name="artist_pending_submission">artist</string>
     <string name="genre_pending_submission">genre</string>
+    <string name="menu_sign_out">Sign Out</string>
+    <string name="pending_approval">Pending Approval</string>
 </resources>

@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 /**
  * The SignInRegister class allows the user to sign into the application,
  * register for the application as well as keep the user signed in as long
- * as the user does not close teh app.
+ * as the user does not close the app.
  * <p>
  * @author Dallas Bleak
  * @version 1.0
@@ -39,12 +38,15 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
 
     private static final String TAG = "SIGNINACT";
     private static final String USERPREF = "UserPref";
-
+    // buttons
     private Button buttonSignin;
     private Button buttonRegister;
+    // user input
     private EditText editTextEmail;
     private EditText editTextPassword;
+    // Intent
     private Intent intent;
+    //Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser firebaseUser;
@@ -58,11 +60,8 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_register);
 
-        mAuth = FirebaseAuth.getInstance();
-
         // Intnet
         intent = new Intent(this, CatalogActivity.class);
-
         // Buttons
         buttonSignin = (Button) findViewById(R.id.button_signin);
         buttonRegister = (Button) findViewById(R.id.button_register);
@@ -72,7 +71,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
         // assign onClickListener to buttons
         buttonSignin.setOnClickListener(this);
         buttonRegister.setOnClickListener(this);
-
         // get instances of Firebase
         mAuth = FirebaseAuth.getInstance();
         fDatabase = FirebaseDatabase.getInstance();
@@ -92,7 +90,6 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
     }
@@ -100,18 +97,21 @@ public class SignInRegister extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onStart() {
         super.onStart();
+        // add authentication listener
         mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        // if thre is an active listener remove it
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
-        if (firebaseUser != null) {
+        // if there is an active user sign them out
+        /*if (firebaseUser != null) {
             mAuth.signOut();
-        }
+        }*/
     }
 
     /************************************************************************

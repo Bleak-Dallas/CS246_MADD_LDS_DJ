@@ -18,7 +18,7 @@ import android.widget.Toast;
  * @since 6/29/2017.
  */
 
-public class CatalogActivity extends AppCompatActivity implements View.OnClickListener {
+public class CatalogActivity extends MenuActivity implements View.OnClickListener {
     private static final String TAG = "CatalogActivity";
     private static final String USERPREF = "UserPref";
     private Button buttonRequestList;

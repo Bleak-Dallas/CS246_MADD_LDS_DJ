@@ -15,7 +15,10 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 /**
- * Created by Dallas on 6/23/2017.
+ * Handles the presentation in a list of songs in the Playlist.
+ * See also {@link=CatalogAdapter}
+ * @author Dallas Bleak
+ * @since 6/20/2017.
  */
 
 public class PlayListAdapter extends ArrayAdapter{
@@ -29,6 +32,12 @@ public class PlayListAdapter extends ArrayAdapter{
         public TextView votes;
     }
 
+    /**
+     * Creates a new instance of the Adapter with a given context and a
+     * List of Songs
+     * @param context The context for the Adapter
+     * @param songs The List of Songs
+     */
     public PlayListAdapter(Context context, List<Song> songs) {
         super(context, R.layout.playlistrow, songs);
         this._context = context;
@@ -41,6 +50,7 @@ public class PlayListAdapter extends ArrayAdapter{
         Log.v(TAG, "View rowView = " + rowView);
 
         if (rowView == null) {
+            // use an Inflator to set the view with song, artist, and votes
             LayoutInflater inflater = (LayoutInflater) _context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

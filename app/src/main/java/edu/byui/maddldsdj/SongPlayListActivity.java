@@ -18,7 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 /**
- * The SongPlayListActivity class
+ * Displays the details of a Song with the vote count and
+ * provdes a way for the user to vote for songs
  * <p>
  * @author Dallas Bleak
  * @version 1.0
@@ -63,12 +64,11 @@ public class SongPlayListActivity extends AppCompatActivity implements View.OnCl
         songText.setText(song.getTitle());
         artistText.setText(song.getArtist());
         albumText.setText(song.getAlbum());
-        //voteText.setText("2");
-        //voteText.setText(song.getVoteCount());  // change this to DB later
 
+        // set the vote count in the view
         try
         {
-            voteText.setText(String.valueOf(song.getVoteCount()));  // change this to DB later
+            voteText.setText(String.valueOf(song.getVoteCount()));
             int countVal = song.getVoteCount();
             Log.d(TAG, "countVal is: " + countVal);
         }catch(Exception ex)
@@ -76,8 +76,6 @@ public class SongPlayListActivity extends AppCompatActivity implements View.OnCl
             Log.d(TAG, "We have an error on getVoteCount()");
             Log.d(TAG, ex.toString());
         }
-        //voteText.setText(song.getVoteCount());  // change this to DB later
-        //Toast.makeText(this, "User signed_in:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
 
         //create onClick listener for button
         btnVoteUp.setOnClickListener(this);
@@ -90,13 +88,13 @@ public class SongPlayListActivity extends AppCompatActivity implements View.OnCl
    private void setButtonVisibility() {
        // get admin from Shared Preferences
        SharedPreferences userPreferences = getSharedPreferences(USERPREF, Context.MODE_PRIVATE);
-        boolean useradmin = userPreferences.getBoolean("userAdmin", false);
-       // if admin show remove song button and hide vote buttons
+       boolean useradmin = userPreferences.getBoolean("userAdmin", false);
+       // if usr is an admin show remove song button and hide vote buttons
         if (useradmin) {
             btnRemove.setVisibility(View.VISIBLE);
             btnVoteUp.setVisibility(View.INVISIBLE);
             btnVoteDown.setVisibility(View.INVISIBLE);
-            // if NOT admin show vote buttons and hide remove song button
+            // if user is NOT admin show vote buttons and hide remove song button
         } else {
             btnRemove.setVisibility(View.INVISIBLE);
             btnVoteUp.setVisibility(View.VISIBLE);

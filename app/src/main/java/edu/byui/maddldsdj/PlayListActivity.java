@@ -1,25 +1,25 @@
 package edu.byui.maddldsdj;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
+import android.widget.Toast;
 
 /**
- * The PlayListActivity class
+ * The PlayListActivity displays a list of songs sorted by vote
+ * count and by artist
  * <p>
  * @author Dallas Bleak
  * @version 1.0
  * @since 2017-06-22
  */
-public class PlayListActivity extends AppCompatActivity implements View.OnClickListener {
+public class PlayListActivity extends MenuActivity implements View.OnClickListener {
     private final static String TAG = "PlayListAct";
     private Button buttonViewCatalog;
 
