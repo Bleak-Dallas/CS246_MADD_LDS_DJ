@@ -15,7 +15,7 @@
         android:layout_marginRight="8dp"
         android:text="@string/submit_request"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/buttonReturnToCatalog"
+        app:layout_constraintLeft_toRightOf="@+id/button_Return_To_Catalog"
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
@@ -28,7 +28,8 @@
         android:text="@string/return_to_catalog"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/buttonSubmitRequest" />
+        app:layout_constraintRight_toLeftOf="@+id/button_Submit_Request"
+        app:layout_constraintHorizontal_bias="0.517" />
 
     <TextView
         android:id="@+id/textViewRequestTitle"
@@ -79,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintLeft_toRightOf="@+id/textViewRequestGenre"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEnterAlbum" />
