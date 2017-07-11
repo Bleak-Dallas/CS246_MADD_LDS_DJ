@@ -39,7 +39,7 @@ public class PendingSongDetailActivity extends AppCompatActivity implements View
 
         // Materialize the Song
         Gson gson = new Gson();
-        Song _song = gson.fromJson(songJson, Song.class);
+        _song = gson.fromJson(songJson, Song.class);
 
         // Populate views from the Song
         TextView songText = (TextView)findViewById(R.id.textView_submission_title);
@@ -55,21 +55,24 @@ public class PendingSongDetailActivity extends AppCompatActivity implements View
 
     @Override
     public void onClick(View v) {
+        Intent dispPending = new Intent(this, PendingApproval.class);
         if (v == buttonApprove){
+
             _catPending.remove(_song);
             _song.setReviewed(true);
             _song.setApproved(true);
             _catApproved.add(_song);
+            startActivity(dispPending);
         }
 
         if (v == buttonReject){
             _catPending.remove(_song);
             _song.setReviewed(true);
             _catRejected.add(_song);
+            startActivity(dispPending);
         }
 
         if (v == buttonReturnToPending){
-            Intent dispPending = new Intent(this, PendingApproval.class);
             startActivity(dispPending);
         }
 
