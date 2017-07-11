@@ -35,8 +35,7 @@
         <activity
             android:name=".PlayListActivity"
             android:label="@string/playlist_name"
-            android:parentActivityName=".CatalogActivity"
-            android:theme="@android:style/Theme.Holo.Light.DarkActionBar" />
+            android:parentActivityName=".CatalogActivity" />
         <activity
             android:name=".SongPlayListActivity"
             android:label="@string/song_name"
