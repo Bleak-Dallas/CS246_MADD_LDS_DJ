@@ -169,6 +169,33 @@ public class CatalogTest {
                 0, c.size());
     }
 
+    @Test
+    public void RemovingASongRemovesItFromFirebase() {
+        Song songToRemove = new Song("Test", "Test", "", "");
+        c.add(songToRemove);
+        verify(_db, times(0)).removeValue();
+        c.remove(songToRemove);
+        verify(_db, times(1)).removeValue();
+    }
+
+    @Test
+    public void RemovingASongRemovesItIfThereIsASongWithMatchingTitleAndArtist() {
+        Song songInCatalog = new Song("Test", "Test", "", "");
+        c.add(songInCatalog);
+        int size = c.size();
+        Song songToRemove = new Song("Test", "Test", "", "");
+        c.remove(songToRemove);
+        assertEquals(size - 1, c.size());
+    }
+
+    @Test
+    public void RemovingASongDoesNothingIfTheSongIsNotInTheCatalog() {
+        Song inCatalog = new Song("Test", "Test", "", "");
+        c.add(inCatalog);
+        Song notInCatalog = new Song("Other", "Test", "", "");
+        c.remove(notInCatalog);
+        verify(_db, times(0)).removeValue();
+    }
     // TODO: If you remove a song from the catalog, it's no longer there
     // TODO: You can get the list of songs??
 

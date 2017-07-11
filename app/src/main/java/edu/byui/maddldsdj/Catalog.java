@@ -142,7 +142,12 @@ public class Catalog {
      * @param song The Song to be removed
      */
     public void remove(Song song) {
-        _songs.remove(song);
+        Song songFromCatalog = find(song);
+        if (null == songFromCatalog)
+            return;
+
+        _songs.remove(songFromCatalog);
+        _db.child(songFromCatalog.getKey()).removeValue();
     }
 
     /**
