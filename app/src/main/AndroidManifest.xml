@@ -29,7 +29,6 @@
             android:name=".SongActivity"
             android:label="@string/song_name"
             android:parentActivityName=".CatalogActivity" />
-        <activity android:name=".ConvertSongListToCatalog" />
         <activity
             android:name=".PlayListActivity"
             android:label="@string/playlist_name"
