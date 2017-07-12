@@ -17,7 +17,7 @@ import static android.content.ContentValues.TAG;
 /**
  * Handles the presentation in a list of songs in the Playlist.
  * See also {@link=CatalogAdapter}
- * @author Dallas Bleak
+ * @author Dallas Bleak, Adam Shumway
  * @since 6/20/2017.
  */
 
@@ -43,6 +43,15 @@ public class PlayListAdapter extends ArrayAdapter{
         this._context = context;
         this._songs = songs;
     }
+
+    /**
+     * Assigns data from the Song class to a row in the ListView.  Performs
+     *  an initial set of sorts for artist and voteCount
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -84,7 +93,7 @@ public class PlayListAdapter extends ArrayAdapter{
         Song song = _songs.get(position);
         holder.title.setText(song.getTitle());
         holder.artist.setText(song.getArtist());
-        holder.votes.setText(String.valueOf(song.getVoteCount()));  // change this to DB when ready
+        holder.votes.setText(String.valueOf(song.getVoteCount()));
 
         return rowView;
     }

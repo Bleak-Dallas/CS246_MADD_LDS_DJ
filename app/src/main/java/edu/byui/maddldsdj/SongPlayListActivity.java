@@ -19,9 +19,9 @@ import com.google.gson.Gson;
 
 /**
  * Displays the details of a Song with the vote count and
- * provdes a way for the user to vote for songs
+ * provides a way for the user to vote for songs
  * <p>
- * @author Dallas Bleak
+ * @author Dallas Bleak, Adam Shumway
  * @version 1.0
  * @since 2017-06-22
  */
