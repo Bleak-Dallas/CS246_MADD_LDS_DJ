@@ -17,8 +17,6 @@ package edu.byui.maddldsdj;
  * <p>
  * The RejectedSubmissions list is a list of Songs that have been submitted for approval.  These
  * Songs have already been reviewed and have been rejected for inclusion in the Catalog.
- *
- *
  */
 
 public class Song {
