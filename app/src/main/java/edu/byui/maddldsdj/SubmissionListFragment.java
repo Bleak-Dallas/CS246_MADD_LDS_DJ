@@ -29,7 +29,7 @@ public class SubmissionListFragment extends ListFragment {
 
 
     /**
-     * Initializes the Catalog and its view
+     * Initializes the SubmissionList and its view
      * @param savedInstanceState
      */
     @Override

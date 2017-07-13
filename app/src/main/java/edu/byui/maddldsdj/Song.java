@@ -5,21 +5,40 @@ package edu.byui.maddldsdj;
  * @author Damon Simpkinson
  * @since 10 July 2017
  * @version 1.0
+ * This class holds our Song items.
+ * <p>
+ * All Song items reside in one of three lists.
+ * <p>
+ * The Catalog is already reviewed and approved for use.  These Songs can be added to the playlist
+ * and voted on.
+ * <p>
+ * The PendingRequests list is a list of Songs that users have submitted for approval that are
+ * waiting to be reviewed.
+ * <p>
+ * The RejectedSubmissions list is a list of Songs that have been submitted for approval.  These
+ * Songs have already been reviewed and have been rejected for inclusion in the Catalog.
+ *
+ *
  */
 
 public class Song {
-    // Variables to identify songs
+    /**
+     * @param title     the string title of the song
+     * @param artist    the string Individual or Group performing the song
+     * @param album     the String title of the album that the song item is located on.
+     * @param genre     the String musical category the song falls under
+     * @param voteCount the tally of votes received
+     * @param reviewed  the boolean checking if the song been reviewed yet
+     * @param approved  the boolean checking if the song has been approved
+     * @param key       the string unique key identifier assigned by Firebase
+     */
     private String title;
     private String artist;
     private String album;
     private String genre;
-
     private int voteCount;
-    // has the song been reviewed?
     private Boolean reviewed;
-    // has the song been approved for use at church dances?
     private Boolean approved;
-    // the key for the song in a database
     private String key;
 
     // default constructor
