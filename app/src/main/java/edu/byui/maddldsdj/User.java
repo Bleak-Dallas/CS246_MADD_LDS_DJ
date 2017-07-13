@@ -8,7 +8,11 @@ public class User {
     private boolean isAdmin;
 
     /**
-     * Creates a user with no name or ID
+     * The User class stores information for the user
+     * when they sign into the app.
+     * <p>
+     * @author Dallas Bleak
+     * @since 2017-06-01
      */
     public User() {
         userEmail = "none";
