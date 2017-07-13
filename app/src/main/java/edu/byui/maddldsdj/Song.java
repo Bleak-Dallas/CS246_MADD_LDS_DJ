@@ -20,16 +20,6 @@ package edu.byui.maddldsdj;
  */
 
 public class Song {
-    /**
-     * @param title     the string title of the song
-     * @param artist    the string Individual or Group performing the song
-     * @param album     the String title of the album that the song item is located on.
-     * @param genre     the String musical category the song falls under
-     * @param voteCount the tally of votes received
-     * @param reviewed  the boolean checking if the song been reviewed yet
-     * @param approved  the boolean checking if the song has been approved
-     * @param key       the string unique key identifier assigned by Firebase
-     */
     private String title;
     private String artist;
     private String album;
@@ -50,6 +40,15 @@ public class Song {
         voteCount = 0;
     }
 
+
+/**
+ * Creates a new Song item with the provided information, will set reviewed and approved to false
+ * and voteCount to 0
+ * @param title     the string title of the song
+ * @param artist    the string Individual or Group performing the song
+ * @param album     the String title of the album that the song item is located on.
+ * @param genre     the String musical category the song falls under
+ */
     // non-default constructor
     public Song(String title, String artist, String album, String genre){
         this.title = title;
@@ -61,6 +60,15 @@ public class Song {
         voteCount = 0;
     }
 
+/**
+ * Creates a new Song item with the provided information.  Will set voteCount to 0
+ * @param title     the string title of the song
+ * @param artist    the string Individual or Group performing the song
+ * @param album     the String title of the album that the song item is located on.
+ * @param genre     the String musical category the song falls under
+ * @param reviewed  the boolean checking if the song been reviewed yet
+ * @param approved  the boolean checking if the song has been approved
+ */
     // non-default constructor
     public Song (String title, String artist, String album, String genre, Boolean reviewed, Boolean approved) {
         this.title = title;
