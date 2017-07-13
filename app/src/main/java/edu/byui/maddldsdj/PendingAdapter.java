@@ -1,19 +1,17 @@
 package edu.byui.maddldsdj;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.List;
 
 /**
- * Created by damon on 7/10/17.
+ * @author Matthew Burr
+ * @author Damon Simpkinson
+ * @since 7/10/2017
  */
 
 public class PendingAdapter extends ArrayAdapter<Song> {
@@ -28,6 +26,7 @@ public class PendingAdapter extends ArrayAdapter<Song> {
      * Creates a new instance of the Adapter with a given context
      * @param context The context for the Adapter
      */
+
     public PendingAdapter(Context context) {
         super(context, R.layout.catalogrow);
         this._context = context;
